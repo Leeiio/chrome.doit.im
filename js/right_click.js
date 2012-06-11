@@ -10,10 +10,9 @@ var id_selection = chrome.contextMenus.create({
         }
         else{
             var task = {
-                id:makeUUID(),
+                uuid:makeUUID(),
                 title : tmp,
                 notes : '',
-                project : '',
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,
@@ -36,10 +35,9 @@ var id_link = chrome.contextMenus.create({
             return;
         }else{
             var task = {
-                id:makeUUID(),
+                uuid:makeUUID(),
                 title : tmp,
                 notes : '',
-                project : '',
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,
@@ -53,7 +51,7 @@ var id_link = chrome.contextMenus.create({
     }
 });
 //右键添加当页地址
-var title_page= _L("background_add_page_url");
+var title_page =  _L("background_add_page_url");
 var id_page = chrome.contextMenus.create({
     'title': title_page, 'contexts':['page'], 'onclick': function(OnClickData){
         var tmp = $.trim(OnClickData.pageUrl);
@@ -62,10 +60,9 @@ var id_page = chrome.contextMenus.create({
             return;
         }else{
             var task = {
-                id:makeUUID(),
+                uuid:makeUUID(),
                 title : tmp,
                 notes : '',
-                project : '',
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,

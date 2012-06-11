@@ -98,31 +98,31 @@ $(document).ready(function() {
             
             $('#tasks_list').bind('click', function(e) {
                 var $t = $(e.target);
-                if($t.parents('#unfinished_tasks').length!=0){
+                if($t.parents('#unfinished_tasks').length){
                     if($t.parents('.complete-button').length != 0 || $t.hasClass('complete-button')){
                         var task = $t.parents('.task-wrap').data('task');
                         finishTask(task,function(task){
                             //删掉那个dom的task
-                            var id = task.id;
+                            var id = task.uuid;
                             slideUpTask(id);
                         });
-                    }else if($t.parents('.delete-button-wrap').length != 0 || $t.hasClass('delete-button-wrap')){//删除
+                    }else if($t.parents('.delete-button-wrap').length || $t.hasClass('delete-button-wrap')){//删除
                         msg({title:L('Warning'),content:L('ARE_YOU_SURE_TO_DELETE_THE_TASK'),ok:function(){
                             var task = $t.parents('.task-wrap').data('task');
                             deleteTask(task,function(task){
                                 //删掉那个dom的task
-                                var id = task.id;
+                                var id = task.uuid;
                                 slideUpTask(id);
                             });
                         },cancel:function(){
                         }});
                     }
-                }else if($t.parents('#finished_tasks').length!=0){
+                }else if($t.parents('#finished_tasks').length){
                     if($t.parents('.complete-button').length != 0 || $t.hasClass('complete-button')){
                         var task = $t.parents('.task-wrap').data('task');
                         unfinishTask(task,function(task){
                             //删掉那个dom的task
-                            var id = task.id;
+                            var id = task.uuid;
                             slideUpTask(id);
                         });
                     }else if($t.parents('.delete-button-wrap').length != 0 || $t.hasClass('delete-button-wrap')){//删除
@@ -130,7 +130,7 @@ $(document).ready(function() {
                             var task = $t.parents('.task-wrap').data('task');
                             deleteTask(task,function(task){
                                 //删掉那个dom的task
-                                var id = task.id;
+                                var id = task.uuid;
                                 slideUpTask(id);
                             });
                         },cancel:function(){
@@ -172,7 +172,7 @@ $(document).ready(function() {
                         }
                     }
                     var task = {
-                        id:makeUUID(),
+                        uuid:makeUUID(),
                         title : $.trim(unescapeHTML(title)),
                         notes : '',
                         project : unescapeHTML(project),
@@ -198,7 +198,7 @@ $(document).ready(function() {
                         start_at_tmp = null;
                         task.attribute = 'inbox';
                     }else if(new RegExp(L('Tomorrow'),'i').test(time)){
-                        start_at_tmp = Date.today().add(1).days().toString('yyyy-MM-dd HH:mm:ss ')+PROFILE.USER_TIMEZONE;
+                        start_at_tmp = Date.today().add(1).days().getTime();
                         task.attribute = 'plan';
                         //U.log('tomorrow');
                     }else if(new RegExp(L('Someday'),'i').test(time)){
@@ -206,7 +206,7 @@ $(document).ready(function() {
                         task.attribute = 'noplan';
                         //U.log('someday');
                     }else if(new RegExp(L('Today'),'i').test(time)){
-                        start_at_tmp = Date.today().toString('yyyy-MM-dd HH:mm:ss ')+PROFILE.USER_TIMEZONE;
+                        start_at_tmp = Date.today().getTime();
                         task.attribute = 'plan';
                         //U.log('today');
                     }else{
@@ -257,6 +257,9 @@ $(document).ready(function() {
                             start_at_tmp = Date.today().toString('yyyy-MM-dd HH:mm:ss ')+PROFILE.USER_TIMEZONE;
                             //U.log('today'); 
                         }
+                        var date_split = start_at_tmp.split(' ');
+                        start_at_tmp = date_split[0].replace(/-/g,'/') + ' ' + date_split[1] + ' ' + date_split[2];
+                        start_at_tmp = new Date(start_at_tmp).getTime();
                     }
                     task.start_at = start_at_tmp;
                     postTask(task,function(){

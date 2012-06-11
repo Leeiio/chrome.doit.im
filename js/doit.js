@@ -1,9 +1,13 @@
 /*====================
         全局变量
 ====================*/
-var PROFILE_URL = 'https://openapi.doit.im/v1/settings';
-var TASKS_URL = 'https://openapi.doit.im/v1/tasks';
-var PROJECTS_URL = 'https://openapi.doit.im/v1/projects';
+var API_URL = 'https://api4.doit.im/2/';
+var PROFILE_URL = 'https://api4.doit.im/2/accounts/info';
+var TASKS_URL = API_URL + 'tasks';
+var PROJECTS_URL = 'https://api4.doit.im/2/projects';
+var TRASHTASK_URL = API_URL + 'tasks/trash/';
+var COMPLETETASK_URL = API_URL + 'tasks/complete/';
+var UNCOMPLETETASK_URL = API_URL + 'tasks/uncomplete/';
 
 var PROFILE = {};
 var TASKS = [];
@@ -21,29 +25,29 @@ var FINISHED_EARLIER = 'finished_earlier';
 //根据task返回task类型
 function showTaskType(task){
     var tmp = task;
-    var startAt = Date.parse(tmp.start_at);
-    var endAt = Date.parse(tmp.end_at);
-    if(tmp.completed==null){
-        if(tmp.repeater == null && tmp.hidden == null && tmp.deleted == null && tmp.trashed == null && tmp.completed == null && tmp.attribute == 'inbox' && (endAt==null || !(endAt.isBefore(Date.today().add(1).day())))){
+    var startAt = new Date(tmp.start_at);
+    var endAt = new Date(tmp.end_at);
+    if(!tmp.completed){
+        if(!tmp.repeater && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && tmp.attribute == 'inbox'){
             return UNFINISHED_INBOX;
-        }else if(tmp.repeater==null && tmp.assignment==null && tmp.hidden==null && tmp.deleted==null && tmp.trashed==null && tmp.completed==null && ((tmp.attribute=='plan' && startAt!=null && startAt.isBefore(Date.today().add(1).day())) || (endAt!=null && endAt.isBefore(Date.today().add(1).day())))){
+        }else if(!tmp.repeater && !tmp.assignment && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && (tmp.attribute=='plan' && startAt && startAt.isBefore(Date.today().add(1).day()))){
             return UNFINISHED_OVERDUE_TODAY;
-        }else if(tmp.repeater==null && tmp.hidden==null && tmp.deleted==null && tmp.trashed==null && tmp.completed==null && tmp.attribute=='plan' && startAt!=null && !(startAt.isBefore(Date.today().add(1).day()))){
+        }else if(!tmp.repeater && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && tmp.attribute=='plan' && startAt && !(startAt.isBefore(Date.today().add(1).day()))){
             return UNFINISHED_SCHEDULED;
-        }else if(tmp.repeater==null && tmp.hidden==null && tmp.deleted==null && tmp.trashed==null && tmp.completed==null && ((tmp.attribute=='noplan' && (endAt==null || (endAt!=null && !(endAt.isBefore(Date.today().add(1).day()))))) || (tmp.attribute=='waiting' && tmp.assignment==null))){
+        }else if(!tmp.repeater && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && tmp.attribute=='noplan'){
             return UNFINISHED_SOMEDAY;
         }
     }else{
-        var c = Date.parse(tmp.completed);
+        var c = new Date(tmp.completed);
         var _today = Date.today();
         var _yesterday = Date.today().add(-1).days();
         var _tomorrow = Date.today().add(1).days();
         
-        if(tmp.archived == null && tmp.hidden == null && tmp.deleted == null && tmp.trashed == null && c.isBefore(_tomorrow) && !(c.isBefore(_today))){
+        if(!tmp.archived && !tmp.hidden && !tmp.deleted && !tmp.trashed && c.isBefore(_tomorrow) && !(c.isBefore(_today))){
             return FINISHED_TODAY;
-        }else if(tmp.archived == null && tmp.hidden == null && tmp.deleted == null && tmp.trashed == null && c.isBefore(_today) && !(c.isBefore(_yesterday))){
+        }else if(!tmp.archived && !tmp.hidden && !tmp.deleted && !tmp.trashed && c.isBefore(_today) && !(c.isBefore(_yesterday))){
             return FINISHED_YESTERDAY;
-        }else if(tmp.archived == null && tmp.hidden == null && tmp.deleted == null && tmp.trashed == null && c.isBefore(_yesterday)){
+        }else if(!tmp.archived && !tmp.hidden && !tmp.deleted && !tmp.trashed && c.isBefore(_yesterday)){
             return FINISHED_EARLIER;
         }
     }
@@ -56,11 +60,15 @@ function setHeader(callback){
     var addHeaders = function(token){
     	var token=localStorage.getItem('user_token');
     	return 'OAuth '+token;
-    }
+    };
+    var addBasicAuth = function(){
+        var auth = localStorage.getItem('user_auth');
+        return 'Basic ' + auth;
+    };
     $.ajaxSetup({
     	dataType: 'json',
     	beforeSend: function(req){
-    		req.setRequestHeader('Authorization', addHeaders())
+    		req.setRequestHeader('Authorization', addBasicAuth())
     	},
     	contentType: "application/json; charset=utf-8"
     });
@@ -83,8 +91,8 @@ function setHeader(callback){
 function getAllTasks(callback){
     var tasks = [];
     $.get(TASKS_URL, function(data) {
-        if(data.entries.length != 0) {
-            var items = data.entries;
+        if(data.entities.length) {
+            var items = data.entities;
             for( var i = 0; i< items.length; i++ ){
                 tasks.push(items[i]);
             }
@@ -193,21 +201,24 @@ function getProfile(callback) {
 function getProjects(callback) {
     var projects = [];
     $.get(PROJECTS_URL, function(data) {
-        $.get('https://openapi.doit.im/v1/projects',function(data){$.each(data.entries,function(i,o){
-            projects.push(o.name);
-        })});
+        $.get('https://api4.doit.im/2/projects',function(data){
+            $.each(data.entities,function(i,o){
+                projects.push(o.name);
+            });
+        });
         callback && callback(projects);
     });
 }
 //完成任务
 function finishTask(task,callback) {
-    var finish_time = new Date().toString("yyyy-MM-dd HH:mm:ss ")+PROFILE.USER_TIMEZONE;
+    var finish_time = new Date().getTime();
     task.completed = finish_time;
     task.title = unescapeHTML(task.title);
     task.project = unescapeHTML(task.project);
     task.notes = unescapeHTML(task.notes);
+    var REST_URL = encodeURIComponent(task.uuid) + (task.repeat_no ? '?repeat_no=' + task.repeat_no : '');
     $.ajax({
-        url: TASKS_URL,
+        url: COMPLETETASK_URL + REST_URL,
         data: task == null?'':JSON.stringify(task),
         type: 'PUT',
         contentType: 'application/json; charset=utf-8',
@@ -227,12 +238,13 @@ function finishTask(task,callback) {
 }
 //标记已完成任务为未完成
 function unfinishTask(task,callback){
-    task.completed = null;
+    task.completed = 0;
     task.title = unescapeHTML(task.title);
     task.project = unescapeHTML(task.project);
     task.notes = unescapeHTML(task.notes);
+    var REST_URL = encodeURIComponent(task.uuid) + (task.repeat_no ? '?repeat_no=' + task.repeat_no : '');
     $.ajax({
-        url: TASKS_URL,
+        url: UNCOMPLETETASK_URL + REST_URL,
         data: task == null?'':JSON.stringify(task),
         type: 'PUT',
         contentType: 'application/json; charset=utf-8',
@@ -252,14 +264,14 @@ function unfinishTask(task,callback){
 }
 //提交任务
 function postTask(task,callback) {
-    if(task != null){
+    if(task){
         task.title = unescapeHTML(task.title);
-        task.project = unescapeHTML(task.project);
+        // task.project = unescapeHTML(task.project);
         task.notes = unescapeHTML(task.notes);
     }
     $.ajax({
         url: TASKS_URL,
-        data: task == null?'':JSON.stringify(task),
+        data: !task ? '' : JSON.stringify(task),
         type: 'POST',
         contentType: 'application/json; charset=utf-8',
         complete: function(resp) {
@@ -279,14 +291,15 @@ function postTask(task,callback) {
 }
 //删除任务
 function deleteTask(task,callback) {
-    var deleted_time = new Date().toString("yyyy-MM-dd HH:mm:ss ")+PROFILE.USER_TIMEZONE;
-    task.deleted = deleted_time;
+    var deleted_time = new Date().getTime();
+    task.trashed = deleted_time;
     task.title = unescapeHTML(task.title);
     task.project = unescapeHTML(task.project);
     task.notes = unescapeHTML(task.notes);
+    var REST_URL = encodeURIComponent(task.uuid) + (task.repeat_no ? '?repeat_no=' + task.repeat_no : '');
     $.ajax({
-        url: TASKS_URL,
-        data: task == null?'':JSON.stringify(task),
+        url: TRASHTASK_URL + REST_URL,
+        data: !task ? '' : JSON.stringify(task),
         type: 'PUT',
         contentType: 'application/json; charset=utf-8',
         complete: function(resp) {
@@ -402,7 +415,7 @@ function hideSmartAddHelp(){
 }
 //检查有无token
 function checkToken(){
-    if(localStorage.user_token == undefined){//没有验证
+    if(!localStorage.user_auth){//没有验证
         $('#container').css('visibility','hidden');
         $('#please_login').show();
         return false;
@@ -428,12 +441,12 @@ function logout(){
 function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
-            var $task = $('<div dyna-id="'+tasks[i].id+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(tasks[i].project)+'</div>')+'<div'+(tasks[i].notes==''?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button"></div></div></div>');
+            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(tasks[i].project)+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button"></div></div></div>');
             $task.data('task',tasks[i]);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
     }else{
-        var $task = $('<div dyna-id="'+tasks.id+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(tasks.project)+'</div>')+'<div'+(tasks.notes==''?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button"></div></div></div>');
+        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(tasks.project)+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {
@@ -473,7 +486,8 @@ function addTaskAuto(task,turn){
 }
 //从dom删除任务
 function slideUpTask(id){
-    $('.task-wrap[dyna-id='+id+']').slideUp('normal',function(){
+    console.log(id)
+    $('.task-wrap[dyna-id='+encodeURIComponent(id)+']').slideUp('normal',function(){
         $(this).remove();
     });
 }
@@ -483,6 +497,7 @@ function showCount(callback){
         setHeader(
             function(){
                 getProfile(function(profile){
+                    // console.log(profile)
                     var user_timezone = profile.user_timezone.split('T')[1].split(')')[0].toString().replace(':','');//+0800
                     var username = profile.username;
                         PROFILE.USER_TIMEZONE = user_timezone;
@@ -493,11 +508,11 @@ function showCount(callback){
                             localStorage.removeItem('all_tasks');
                             localStorage.setItem('all_tasks',JSON.stringify(tasks));
                             //+++
-                            getOverdueAndTodayTasks(function(tasks){
-                                var count = tasks.length;
-                                chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
-                                callback && callback();
-                            });
+                            // getOverdueAndTodayTasks(function(tasks){
+                            //     var count = tasks.length;
+                            //     chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
+                            //     callback && callback();
+                            // });
                         });  
                 });
             }
@@ -519,12 +534,104 @@ function M(s){
         }
     },1200);
 }
+/*!
+Math.uuid.js (v1.4)
+http://www.broofa.com
+mailto:robert@broofa.com
+
+Copyright (c) 2010 Robert Kieffer
+Dual licensed under the MIT and GPL licenses.
+*/
+
+/*
+ * Generate a random uuid.
+ *
+ * USAGE: Math.uuid(length, radix)
+ *   length - the desired number of characters
+ *   radix  - the number of allowable values for each character.
+ *
+ * EXAMPLES:
+ *   // No arguments  - returns RFC4122, version 4 ID
+ *   >>> Math.uuid()
+ *   "92329D39-6F5C-4520-ABFC-AAB64544E172"
+ *
+ *   // One argument - returns ID of the specified length
+ *   >>> Math.uuid(15)     // 15 character ID (default base=62)
+ *   "VcydxgltxrVZSTV"
+ *
+ *   // Two arguments - returns ID of the specified length, and radix. (Radix must be <= 62)
+ *   >>> Math.uuid(8, 2)  // 8 character ID (base=2)
+ *   "01001010"
+ *   >>> Math.uuid(8, 10) // 8 character ID (base=10)
+ *   "47473046"
+ *   >>> Math.uuid(8, 16) // 8 character ID (base=16)
+ *   "098F4D35"
+ */
+(function() {
+  // Private array of chars to use
+  var CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+
+  Math.uuid = function (len, radix) {
+    var chars = CHARS, uuid = [], i;
+    radix = radix || chars.length;
+
+    if (len) {
+      // Compact form
+      for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+    } else {
+      // rfc4122, version 4 form
+      var r;
+
+      // rfc4122 requires these characters
+      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+      uuid[14] = '4';
+
+      // Fill in random data.  At i==19 set the high bits of clock sequence as
+      // per rfc4122, sec. 4.1.5
+      for (i = 0; i < 36; i++) {
+        if (!uuid[i]) {
+          r = 0 | Math.random()*16;
+          uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+        }
+      }
+    }
+
+    return uuid.join('');
+  };
+
+  // A more performant, but slightly bulkier, RFC4122v4 solution.  We boost performance
+  // by minimizing calls to random()
+  Math.uuidFast = function() {
+    var chars = CHARS, uuid = new Array(36), rnd=0, r;
+    for (var i = 0; i < 36; i++) {
+      if (i==8 || i==13 ||  i==18 || i==23) {
+        uuid[i] = '-';
+      } else if (i==14) {
+        uuid[i] = '4';
+      } else {
+        if (rnd <= 0x02) rnd = 0x2000000 + (Math.random()*0x1000000)|0;
+        r = rnd & 0xf;
+        rnd = rnd >> 4;
+        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+      }
+    }
+    return uuid.join('');
+  };
+
+  // A more compact, but less performant, RFC4122v4 solution:
+  Math.uuidCompact = function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+      return v.toString(16);
+    });
+  };
+})();
 //制造task的id
 function makeUUID() {
-    var uuid = randomUUID(); //生成uuid
-    var uuid_b = new Base64();
-    var uuid_base64 = uuid_b.encode(uuid);
-    return uuid_base64;
+    // var uuid = randomUUID(); //生成uuid
+    // var uuid_b = new Base64();
+    // var uuid_base64 = uuid_b.encode(uuid);
+    return Math.uuid();
 }
 function randomUUID() {
     var s = [];

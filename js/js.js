@@ -27,6 +27,46 @@ $(document).ready(function() {
         content:'# ' + L('Project') + '<br />^ ' + L('Date')
     });
 
+    setTimeout(function(){
+        $('#signin_username').trigger('focus');
+    },678);
+    //登录
+    $('.signin-form').bind('submit',function(){
+        var username = $('#signin_username').val();
+        var password = $('#signin_password').val();
+        if(!username && !password){
+            $(this).find('input').parent().addClass('error');
+            return false;
+        }
+        var auth = Base64.encode(username + ':' + password);
+        $.ajax({
+            url: PROFILE_URL,
+            dataType: 'json',
+            beforeSend: function(req){
+                req.setRequestHeader('Authorization', 'Basic ' + auth)
+            },
+            contentType: "application/json; charset=utf-8",
+            complete: function(resp) {
+                var status = resp.status;
+                var data = JSON.parse(resp.responseText);
+                localStorage.setItem('account',JSON.stringify(data));
+                if(status == 401) {
+                    $('.signin-form input').parent().addClass('error');
+                    $('#signin_error').html('incorrect Username/Email or Password').show();
+                }else if(status == 200){
+                    localStorage.setItem('user_auth',auth);
+                    location.reload();
+                }
+            }
+        });        
+        return false;
+    });
+    $('.signin-form').find('input').bind('keyup keydown',function(){
+        if($(this).val()){
+            $(this).parent().removeClass('error');
+        }
+    });
+
     var _tmpFlag = checkToken();
     //no 刷新
     var ts = JSON.parse(localStorage.getItem('all_tasks'));

@@ -1,5 +1,6 @@
 {
   "name": "Doit.im",
+  "update_url": "http://clients2.google.com/service/update2/crx",
   "version": "2.0",
   "description": "Here comes the extension of Doit.im, which adopts GTD to make your life perfectly organized.",
   "browser_action": {

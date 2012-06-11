@@ -487,11 +487,14 @@ function addTaskAuto(task,turn){
         case UNFINISHED_OVERDUE_TODAY:
             addTasks(task,0,1,turn);
         break;
-        case UNFINISHED_SCHEDULED:
+        case UNFINISHED_NEXT:
             addTasks(task,0,2,turn);
         break;
-        case UNFINISHED_SOMEDAY:
+        case UNFINISHED_SCHEDULED:
             addTasks(task,0,3,turn);
+        break;
+        case UNFINISHED_SOMEDAY:
+            addTasks(task,0,4,turn);
         break;
         case FINISHED_TODAY:
             addTasks(task,1,0,turn);
@@ -541,7 +544,6 @@ function showCount(callback){
         setHeader(
             function(){
                 getProfile(function(profile){
-                    // console.log(profile)
                     var user_timezone = profile.user_timezone.split('T')[1].split(')')[0].toString().replace(':','');//+0800
                     var username = profile.username;
                         PROFILE.USER_TIMEZONE = user_timezone;
@@ -552,11 +554,11 @@ function showCount(callback){
                             localStorage.removeItem('all_tasks');
                             localStorage.setItem('all_tasks',JSON.stringify(tasks));
                             //+++
-                            // getOverdueAndTodayTasks(function(tasks){
-                            //     var count = tasks.length;
-                            //     chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
+                            getOverdueAndTodayTasks(function(tasks){
+                                var count = tasks.length;
+                                chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
                                 
-                            // });
+                            });
                         });  
                 });
             }

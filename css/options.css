@@ -2,17 +2,14 @@ html{
     background: url("../imgs/option-bg.png") repeat-x scroll 0 0 transparent;
 }
 #wrap{
-    width:400px;
+    width:300px;
     margin:0 auto;
     text-align:center;
     }
-#header{
-    height:110px;
-}
 #body{
     background-color:#fff;
     min-height:300px;
-    padding:50px 0 20px 0;
+    padding:0 0 20px 0;
     -webkit-border-radius: 10px 10px 0 0;
     border-radius: 10px 10px 0 0;
 }
@@ -23,25 +20,17 @@ html{
     margin-top: 20px;
     color: #888;
 }*/
-#body a {
-    color:#2F4A60;
-    text-decoration:none;
-}
-#body a:hover {
-    text-decoration:underline;
-}
+
 em{
     font-weight:bold;
 }
 #option_logo{
     padding-top:40px;
 }
-#body #register_wrap{
-    margin-top: 15px;
-}
+
 
 #account_info{
-    width:400px;
+    width:300px;
     margin:0 auto;
 }
 .account-list li{

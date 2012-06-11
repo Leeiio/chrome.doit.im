@@ -20,6 +20,7 @@ $(document).ready(function() {
     $('.type-earlier-finish .task-type-text').text(L('Earlier'));
     $('#msg_box_button_ok').text(L('OK'));
     $('#msg_box_button_cancel').text(L('Cancel'));
+    $('#register').text(L('option_sign_up_a_new_account_in_Doitim'));
     //HTML国际化结束啊
 
     $('#task_add_help a').popover({
@@ -38,6 +39,7 @@ $(document).ready(function() {
             $(this).find('input').parent().addClass('error');
             return false;
         }
+        $(this).find('.submit-loading').show();
         var auth = Base64.encode(username + ':' + password);
         $.ajax({
             url: PROFILE_URL,

@@ -333,11 +333,12 @@ body{
     border-bottom: 1px solid #fff;
 }
 #please_login{
-    width: 100%;
+    width: 300px;
+    margin:40px auto 0 auto;
     text-align: center;
     /*position: fixed;*/
     /*top: 40%;*/
-    margin-top:50px;
+    /*margin-top:50px;*/
 }
 #please_login .forget-password{
     text-align:right;

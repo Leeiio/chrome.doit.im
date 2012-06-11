@@ -121,12 +121,15 @@
 </div>
 <div id="please_login" class="signin-form">
     <p><a href="http://doit.im" target="_blank" title="Doit.im"><img src="../imgs/option-logo.png" /></a></p>
+    <div class="register-new">
+        <a id="register" target="_blank" href="https://i.doit.im/register">前往&nbsp;Doit.im&nbsp;注册一个新帐号</a>
+    </div>
     <div id="signin_error" class="alert alert-error" style="display:none"></div>
     <form method="post" action="" id="signin_form">
         <p class="control-group"><input id="signin_username" autofocus="autofocus" type="text" placeholder="Username" /></p>
         <p class="control-group"><input id="signin_password" type="password" placeholder="Password" /></p>
         <p class="forget-password"><a target="_blank" href="https://i.doit.im/forget_password">Forgot password?</a></p>
-        <p><button id="signin_submit" class="btn btn-primary" type="submit">Submit</button></p>
+        <div class="submit"><div style="display:none" class="submit-loading"></div><button id="signin_submit" class="btn btn-primary" type="submit">Submit</button></div>
     </form>
 </div>
 <div id="msg_box_wrap">

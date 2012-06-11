@@ -201,12 +201,10 @@ function getProfile(callback) {
 function getProjects(callback) {
     var projects = [];
     $.get(PROJECTS_URL, function(data) {
-        $.get('https://api4.doit.im/2/projects',function(data){
-            $.each(data.entities,function(i,o){
-                if(!o.completed && !o.trashed){
-                    projects.push(o.name);
-                }
-            });
+        $.each(data.entities,function(i,o){
+            if(!o.completed && !o.trashed){
+                projects.push(o);
+            }
         });
         callback && callback(projects);
     });
@@ -404,17 +402,7 @@ function msg(obj){
         ok && ok();
     });
 }
-//显示智能添加的帮助
-// function showSmartAddHelp(){
-//     var $sah = $('#smart_add_help');
-//     $sah.draggable({ cancel: '#smart_add_help_close', containment: '#container'}).disableSelection().show();
-//     $sah.find('#smart_add_help_title').disableSelection();
-// }
-//隐藏智能添加的帮助
-// function hideSmartAddHelp(){
-//     var $sah = $('#smart_add_help');
-//     $sah.hide();
-// }
+
 //检查有无token
 function checkToken(){
     if(!localStorage.user_auth){//没有验证
@@ -443,12 +431,12 @@ function logout(){
 function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
-            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(tasks[i].project)+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',tasks[i]);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
     }else{
-        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(tasks.project)+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {
@@ -486,6 +474,27 @@ function addTaskAuto(task,turn){
    }
     
 }
+//根据名称查找uuid
+function findUUIDByName(objs,name){
+    var id = null;
+    $.each(objs,function(i){
+        if(objs[i].name == name){
+             id = objs[i].uuid;
+        }
+    });
+    return id;
+};
+//根据uuid查找名称
+function findNameByUUID(objs,uuid){
+    if(uuid === undefined) return null;
+    var name = null;
+    $.each(objs,function(i){
+        if(objs[i].uuid === uuid){
+             name = objs[i].name;
+        }
+    });
+    return name;
+};
 //从dom删除任务
 function slideUpTask(id){
     console.log(id)
@@ -714,49 +723,49 @@ function makeUUID() {
      }
 
  }
- //HTML-escape
- function escapeHTML(data) {
-     if(data==null){return;}
-     return (
-     data.replace(/&/g, '&amp;').
-     replace(/>/g, '&gt;').
-     replace(/</g, '&lt;').
-     replace(/'/g,'&#39').
-     replace(/"/g, '&quot;'));
- };
- function escapeArrayHTML(arr) {
-     if(data==null){return;}
-     for(i=0;i<arr.length;i++){
-         if(arr[i] != null){
-             arr[i] = arr[i].replace(/&/g, '&amp;').
-             replace(/>/g, '&gt;').
-             replace(/</g, '&lt;').
-             replace(/'/g,'&#39').
-             replace(/"/g, '&quot;');
-         }
-     }
-     return arr;
- };
- function unescapeArrayHTML(arr) {
-     if(data==null){return;}
-     for(i=0;i<arr.length;i++){
-         if(arr[i] != null){
-             arr[i] = arr[i].replace(/&gt;/g, '>').
-             replace(/&lt;/g, '<').
-             replace(/&#39/g,"'").
-             replace(/&quot;/g, '"').
-             replace(/&amp;/g, '&');
-         }
-     }
-     return arr;
- };
- function unescapeHTML(data) {
-     if(data==null){return;}
-     return(
-         data.replace(/&gt;/g, '>').
-         replace(/&lt;/g, '<').
-         replace(/&#39/g,"'").
-         replace(/&quot;/g, '"').
-         replace(/&amp;/g, '&')
-     );
- };
+//HTML-escape
+function escapeHTML(data) {
+    if(data){
+        return (
+            data.replace(/&/g, '&amp;').
+            replace(/>/g, '&gt;').
+            replace(/</g, '&lt;').
+            replace(/'/g,'&#39;').
+            replace(/"/g, '&quot;'));
+    }else{
+        return data;
+    };
+};
+function escapeArrayHTML(arr) {
+    for(i=0;i<arr.length;i++){
+        if(arr[i] != null){
+            arr[i] = arr[i].replace(/&/g, '&amp;').
+            replace(/>/g, '&gt;').
+            replace(/</g, '&lt;').
+            replace(/'/g,'&#39;').
+            replace(/"/g, '&quot;');
+        }
+    }
+    return arr;
+};
+function unescapeArrayHTML(arr) {
+    for(i=0;i<arr.length;i++){
+        if(arr[i] != null){
+            arr[i] = arr[i].replace(/&gt;/g, '>').
+            replace(/&lt;/g, '<').
+            replace(/&#39;/g,"'").
+            replace(/&quot;/g, '"').
+            replace(/&amp;/g, '&');
+        }
+    }
+    return arr;
+};
+function unescapeHTML(data) {
+    if (data == null || data == "") return data;
+    return (data.replace(/&gt;/g, '>').
+            replace(/&lt;/g, '<').
+            replace(/&#39;/g,"'").
+            replace(/&quot;/g, '"').
+            replace(/&amp;/g, '&')
+            );
+};

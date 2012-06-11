@@ -26,46 +26,6 @@ $(document).ready(function() {
         content:'# ' + L('Project') + '<br />^ ' + L('Date')
     });
 
-    setTimeout(function(){
-        $('#signin_username').trigger('focus');
-    },1000);
-    //登录
-    $('.signin-form').bind('submit',function(){
-        var username = $('#signin_username').val();
-        var password = $('#signin_password').val();
-        if(!username && !password){
-            $(this).find('input').parent().addClass('error');
-            return false;
-        }
-        var auth = Base64.encode(username + ':' + password);
-        $.ajax({
-            url: PROFILE_URL,
-            dataType: 'json',
-            beforeSend: function(req){
-                req.setRequestHeader('Authorization', 'Basic ' + auth)
-            },
-            contentType: "application/json; charset=utf-8",
-            complete: function(resp) {
-                var status = resp.status;
-                var data = JSON.parse(resp.responseText);
-                localStorage.setItem('account',JSON.stringify(data));
-                if(status == 401) {
-                    $('.signin-form input').parent().addClass('error');
-                    $('#signin_error').html('incorrect Username/Email or Password').show();
-                }else if(status == 200){
-                    localStorage.setItem('user_auth',auth);
-                    location.reload();
-                }
-            }
-        });        
-        return false;
-    });
-    $('.signin-form').find('input').bind('keyup keydown',function(){
-        if($(this).val()){
-            $(this).parent().removeClass('error');
-        }
-    });
-
     var _tmpFlag = checkToken();
     //no 刷新
     var ts = JSON.parse(localStorage.getItem('all_tasks'));
@@ -107,8 +67,15 @@ $(document).ready(function() {
                                 });
                             });
                         });
+                        var projects_smart = [];
+                        $.each(projects,function(i,item){
+                            if(!item.trashed && !item.completed){
+                                projects_smart.push(unescapeHTML(item.name));    
+                            }
+                        });
+    
                         var $input = $('#task_add_input_wrap input');
-                        $.smartAdd.setRules({flag:'^',list:[L('Today'),L('Tomorrow'),L('Someday'),'mm-dd','yy-mm-dd'],repeat:false,hr:3,className:['','','']},{flag:'#',list:projects,repeat:false,hr:-1});
+                        $.smartAdd.setRules({flag:'^',list:[L('Today'),L('Tomorrow'),L('Someday'),'mm-dd','yy-mm-dd'],repeat:false,hr:3,className:['','','']},{flag:'#',list:projects_smart,repeat:false,hr:-1});
                         $input.smartAdd();
                         $input.bind('keydown', function(e){
                             if(e.which == 13 && $('#smart_add_list').css('visibility') == 'hidden'){
@@ -194,24 +161,46 @@ $(document).ready(function() {
                     var project = '';
                     var time = '';
                     for(var i = 0; i< ary.length; i++){
-                        if(/^\#/.test(ary[i])){
-                            project = ary[i].substring(1,ary[i].length);
-                        }else if(/^\^/.test(ary[i])){
+                        // if(/^.*(\s\#\S.*)/.test(ary[i])){
+                        //     project = ary[i].substring(1,ary[i].length);
+                        // }else 
+                        if(/^\^/.test(ary[i])){
                             time = ary[i].substring(1,ary[i].length);
                         }else{
                             title += ' '+ary[i];
                         }
                     }
+                    var projects_smart = [];
+                    $.each(PROJECTS,function(i,item){
+                        if(!item.trashed && !item.completed){
+                            projects_smart.push(unescapeHTML(item.name));    
+                        }
+                    });
+                    var project_reg = /^.*(\s\#\S.*)/;
+                    var project_str = project_reg.exec(' '+smartAddString);
+                    project_str = project_str == null ? null : $.trim(project_str[1]).replace('#','');
+                    if(project_str != null){
+                        while($.inArray(project_str,projects_smart) == -1){
+                            if(project_str.split(' ').length == 1) break;
+                            project_str = project_str.split(' ');
+                            project_str = project_str.slice(0,project_str.length-1);
+                            project_str = project_str.join(' ');
+                        }
+                        smartAddString = (' '+smartAddString+' ').replace(' #'+project_str,'');
+                    }
+                    var project_id = findUUIDByName(PROJECTS,escapeHTML(project_str));
                     var task = {
                         uuid:makeUUID(),
                         title : $.trim(unescapeHTML(title)),
                         notes : '',
-                        project : unescapeHTML(project),
+                        project_id : project_id,
+                        project_name : project_str,
                         start_at : null,//要拼凑
                         completed : null,
                         all_day : true,
                         attribute: 'inbox'
                     };
+
                     //task验证
                     if(task.title == '') {
                         M(L('TASK_VALI_TITLE_REQUIRED'));
@@ -219,7 +208,7 @@ $(document).ready(function() {
                     } else if(task.title.length > 225) {
                         M(L('TASK_VALI_TITLE_TOO_LONG'));
                         return false;
-                    } else if (task.project.length > 30){
+                    } else if (project_str.length > 30){
                         M(L('TASK_VALI_PROJECT_TOO_LONG'));
                         return false;
                     }
@@ -292,6 +281,7 @@ $(document).ready(function() {
                         start_at_tmp = date_split[0].replace(/-/g,'/') + ' ' + date_split[1] + ' ' + date_split[2];
                         start_at_tmp = new Date(start_at_tmp).getTime();
                     }
+                    if(project_id) task.attribute = 'next';
                     task.start_at = start_at_tmp;
                     postTask(task,function(){
                         addTaskAuto(task);

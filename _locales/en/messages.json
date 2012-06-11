@@ -17,6 +17,9 @@
     "Inbox": {
         "message": "Inbox"
     },
+    "Next": {
+        "message": "Next"
+    },
     "Overdue_and_Today": {
         "message": "Today"
     },

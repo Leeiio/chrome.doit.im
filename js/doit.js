@@ -14,6 +14,7 @@ var TASKS = [];
 var PROJECTS = [];
 
 var UNFINISHED_INBOX = 'unfinished_inbox';
+var UNFINISHED_NEXT = 'unfinished_next';
 var UNFINISHED_OVERDUE_TODAY = 'unfinished_overdue_today';
 var UNFINISHED_SCHEDULED = 'unfinished_scheduled';
 var UNFINISHED_SOMEDAY = 'unfinished_someday';
@@ -30,6 +31,8 @@ function showTaskType(task){
     if(!tmp.completed){
         if(!tmp.repeater && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && tmp.attribute == 'inbox'){
             return UNFINISHED_INBOX;
+        }else if(!tmp.repeater && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && tmp.attribute == 'next'){
+            return UNFINISHED_NEXT;
         }else if(!tmp.repeater && !tmp.assignment && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && (tmp.attribute=='plan' && startAt && startAt.isBefore(Date.today().add(1).day()))){
             return UNFINISHED_OVERDUE_TODAY;
         }else if(!tmp.repeater && !tmp.hidden && !tmp.deleted && !tmp.trashed && !tmp.completed && tmp.attribute=='plan' && startAt && !(startAt.isBefore(Date.today().add(1).day()))){
@@ -119,6 +122,18 @@ function getOverdueAndTodayTasks(callback) {
     for(var i = 0; i<TASKS.length; i++){
         var tmp = TASKS[i];
         if(showTaskType(tmp) == UNFINISHED_OVERDUE_TODAY){
+            tasks.push(tmp);
+        }
+    }
+    callback && callback(tasks);
+}
+
+//获得Next箱任务
+function getNextTasks(callback){
+    var tasks = [];
+    for(var i = 0; i<TASKS.length; i++){
+        var tmp = TASKS[i];
+        if(showTaskType(tmp) == UNFINISHED_NEXT){
             tasks.push(tmp);
         }
     }
@@ -332,11 +347,19 @@ function getUnfinishedTasks(tasks){
         $('.type-overdue-today').next().html('');
         addTasks(tasks,0,1);
     });
+    getNextTasks(function(tasks){
+        
+        $('.type-next').next().html('');
+        
+        addTasks(tasks,0,2);
+        
+        
+    });
     getScheduledTasks(function(tasks){
         
         $('.type-scheduled').next().html('');
         
-        addTasks(tasks,0,2);
+        addTasks(tasks,0,3);
         
         
     });
@@ -344,7 +367,7 @@ function getUnfinishedTasks(tasks){
         
         $('.type-someday').next().html('');
         
-        addTasks(tasks,0,3);
+        addTasks(tasks,0,4);
         
         
     });
@@ -395,11 +418,21 @@ function msg(obj){
     });
     $msg.find('#msg_box_button_cancel').unbind('click').bind('click', function() {
         $msg.hide();
+        $(document).unbind('keydown.msgKey');
         cancel && cancel();
     });
     $msg.find('#msg_box_button_ok').unbind('click').bind('click', function() {
         $msg.hide();
+        $(document).unbind('keydown.msgKey');
         ok && ok();
+    });
+    $(document).bind('keydown.msgKey',function(e){
+        var keycode = e.keyCode;
+        if(keycode === 13){
+            $('#msg_box_button_ok').trigger('click');
+        }else if(keycode === 27){
+            $('#msg_box_button_cancel').trigger('click');
+        }
     });
 }
 
@@ -497,7 +530,6 @@ function findNameByUUID(objs,uuid){
 };
 //从dom删除任务
 function slideUpTask(id){
-    console.log(id)
     $('.task-wrap[dyna-id='+encodeURIComponent(id)+']').slideUp('normal',function(){
         $(this).remove();
     });

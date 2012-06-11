@@ -11,6 +11,7 @@ $(document).ready(function() {
     $('.tab-unfinished div').text(L('Uncompleted'));
     $('.tab-finished div').text(L('Completed'));
     $('.type-inbox .task-type-text').text(L('Inbox'));
+    $('.type-next .task-type-text').text(L('Next'));
     $('.type-overdue-today .task-type-text').text(L('Overdue_and_Today'));
     $('.type-scheduled .task-type-text').text(L('Scheduled'));
     $('.type-someday .task-type-text').text(L('Someday'));

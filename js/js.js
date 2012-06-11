@@ -17,35 +17,66 @@ $(document).ready(function() {
     $('.type-today-finish .task-type-text').text(L('Today'));
     $('.type-yesterday-finish .task-type-text').text(L('Yesterday'));
     $('.type-earlier-finish .task-type-text').text(L('Earlier'));
-//    $('#msg_box_title_text').text(L('Warning'));
-//    $('#msg_box_content_text').text(L('Are you sure to delete the task?'));
     $('#msg_box_button_ok').text(L('OK'));
     $('#msg_box_button_cancel').text(L('Cancel'));
-    $('#smart_add_help_title_text').text(L('smart_add_shortcuts'));
-    $('#smart_add_help_close').text(L('Close'));
-    $('#smart_add_project').text(L('Project'));
-    $('#smart_add_date').text(L('Date'));
-    
-    $('#go_to_option_left').text(L('go_to_options_to_login_left'));
-    $('#go_to_option').text(L('go_to_options_to_login'));
-    $('#go_to_option_right').text(L('go_to_options_to_login_right'));
     //HTML国际化结束啊
-    $('#task_add_help a').bind('click',function(){
-        showSmartAddHelp();
+
+    $('#task_add_help a').popover({
+        title:L('smart_add_shortcuts'),
+        content:'# ' + L('Project') + '<br />^ ' + L('Date')
     });
-    $('#smart_add_help_close').bind('click',function(){
-        hideSmartAddHelp();
+
+    setTimeout(function(){
+        $('#signin_username').trigger('focus');
+    },1000);
+    //登录
+    $('.signin-form').bind('submit',function(){
+        var username = $('#signin_username').val();
+        var password = $('#signin_password').val();
+        if(!username && !password){
+            $(this).find('input').parent().addClass('error');
+            return false;
+        }
+        var auth = Base64.encode(username + ':' + password);
+        $.ajax({
+            url: PROFILE_URL,
+            dataType: 'json',
+            beforeSend: function(req){
+                req.setRequestHeader('Authorization', 'Basic ' + auth)
+            },
+            contentType: "application/json; charset=utf-8",
+            complete: function(resp) {
+                var status = resp.status;
+                var data = JSON.parse(resp.responseText);
+                localStorage.setItem('account',JSON.stringify(data));
+                if(status == 401) {
+                    $('.signin-form input').parent().addClass('error');
+                    $('#signin_error').html('incorrect Username/Email or Password').show();
+                }else if(status == 200){
+                    localStorage.setItem('user_auth',auth);
+                    location.reload();
+                }
+            }
+        });        
+        return false;
     });
+    $('.signin-form').find('input').bind('keyup keydown',function(){
+        if($(this).val()){
+            $(this).parent().removeClass('error');
+        }
+    });
+
     var _tmpFlag = checkToken();
     //no 刷新
     var ts = JSON.parse(localStorage.getItem('all_tasks'));
-    if(ts != null){
+    if(ts){
         for(var i = 0; i<ts.length; i++) {
             addTaskAuto(ts[i],'no');
         }
     }
     //no 刷新
-    setTimeout(function(){
+    function everything_init(){
+        setTimeout(function(){
             if( _tmpFlag ){//有料
                 setHeader(function(){//加入哦噢嗖
                     getProjects(function(projects){
@@ -91,8 +122,8 @@ $(document).ready(function() {
                     });
                 });
             }else{//没料
-                window.close();
-                open_option();
+                // window.close();
+                // open_option();
                 return false;
             }
             
@@ -270,5 +301,6 @@ $(document).ready(function() {
                 }
             }
         },350)
-    
+    }
+    everything_init();
 });

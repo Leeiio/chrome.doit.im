@@ -203,7 +203,9 @@ function getProjects(callback) {
     $.get(PROJECTS_URL, function(data) {
         $.get('https://api4.doit.im/2/projects',function(data){
             $.each(data.entities,function(i,o){
-                projects.push(o.name);
+                if(!o.completed && !o.trashed){
+                    projects.push(o.name);
+                }
             });
         });
         callback && callback(projects);
@@ -403,20 +405,20 @@ function msg(obj){
     });
 }
 //显示智能添加的帮助
-function showSmartAddHelp(){
-    var $sah = $('#smart_add_help');
-    $sah.draggable({ cancel: '#smart_add_help_close', containment: '#container'}).disableSelection().show();
-    $sah.find('#smart_add_help_title').disableSelection();
-}
+// function showSmartAddHelp(){
+//     var $sah = $('#smart_add_help');
+//     $sah.draggable({ cancel: '#smart_add_help_close', containment: '#container'}).disableSelection().show();
+//     $sah.find('#smart_add_help_title').disableSelection();
+// }
 //隐藏智能添加的帮助
-function hideSmartAddHelp(){
-    var $sah = $('#smart_add_help');
-    $sah.hide();
-}
+// function hideSmartAddHelp(){
+//     var $sah = $('#smart_add_help');
+//     $sah.hide();
+// }
 //检查有无token
 function checkToken(){
     if(!localStorage.user_auth){//没有验证
-        $('#container').css('visibility','hidden');
+        $('#container').hide();
         $('#please_login').show();
         return false;
     }else{
@@ -435,18 +437,18 @@ function open_option(){
 }
 //登出
 function logout(){
-    localStorage.removeItem('user_token');
+    localStorage.removeItem('user_auth');
 }
 //添加任务
 function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
-            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(tasks[i].project)+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button"></div></div></div>');
+            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(tasks[i].project)+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',tasks[i]);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
     }else{
-        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(tasks.project)+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button"></div></div></div>');
+        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(tasks.project)+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {
@@ -494,6 +496,7 @@ function slideUpTask(id){
 //显示数字
 function showCount(callback){
     if(checkToken()){
+        callback && callback();
         setHeader(
             function(){
                 getProfile(function(profile){
@@ -511,7 +514,7 @@ function showCount(callback){
                             // getOverdueAndTodayTasks(function(tasks){
                             //     var count = tasks.length;
                             //     chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
-                            //     callback && callback();
+                                
                             // });
                         });  
                 });
@@ -628,47 +631,47 @@ Dual licensed under the MIT and GPL licenses.
 })();
 //制造task的id
 function makeUUID() {
-    // var uuid = randomUUID(); //生成uuid
-    // var uuid_b = new Base64();
-    // var uuid_base64 = uuid_b.encode(uuid);
+//     // var uuid = randomUUID(); //生成uuid
+//     // var uuid_b = new Base64();
+//     // var uuid_base64 = uuid_b.encode(uuid);
     return Math.uuid();
 }
-function randomUUID() {
-    var s = [];
-    for (var i = 0; i < 16; i++) {
-        s[i] = Math.floor(Math.random() * 0x100);
-    }
-    s[6] = (s[6] & 0x0F) | 0x40;
-    s[8] = (s[8] & 0x3F) | 0x80;
-    return s;
-}
-function Base64() {
-    // private property
-    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+// function randomUUID() {
+//     var s = [];
+//     for (var i = 0; i < 16; i++) {
+//         s[i] = Math.floor(Math.random() * 0x100);
+//     }
+//     s[6] = (s[6] & 0x0F) | 0x40;
+//     s[8] = (s[8] & 0x3F) | 0x80;
+//     return s;
+// }
+// function Base64() {
+//     // private property
+//     _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-    // public method for encoding
-    this.encode = function(input) {
-        var output = "";
-        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-        var i = 0;
-        while (i < input.length) {
-            chr1 = input[i++];
-            chr2 = input[i++];
-            chr3 = input[i++];
-            enc1 = chr1 >> 2;
-            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-            enc4 = chr3 & 63;
-            if (isNaN(chr2)) {
-                enc3 = enc4 = 64;
-            } else if (isNaN(chr3)) {
-                enc4 = 64;
-            }
-            output = output + _keyStr.charAt(enc1) + _keyStr.charAt(enc2) + _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
-        }
-        return output;
-    }
- }
+//     // public method for encoding
+//     this.encode = function(input) {
+//         var output = "";
+//         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+//         var i = 0;
+//         while (i < input.length) {
+//             chr1 = input[i++];
+//             chr2 = input[i++];
+//             chr3 = input[i++];
+//             enc1 = chr1 >> 2;
+//             enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+//             enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+//             enc4 = chr3 & 63;
+//             if (isNaN(chr2)) {
+//                 enc3 = enc4 = 64;
+//             } else if (isNaN(chr3)) {
+//                 enc4 = 64;
+//             }
+//             output = output + _keyStr.charAt(enc1) + _keyStr.charAt(enc2) + _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+//         }
+//         return output;
+//     }
+//  }
  //颜色渐变
  /**
   *动态修改颜色，用于渐变

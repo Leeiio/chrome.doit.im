@@ -456,10 +456,7 @@ function open_option(){
 		selected: true
 	});
 }
-//登出
-function logout(){
-    localStorage.removeItem('user_auth');
-}
+
 //添加任务
 function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){

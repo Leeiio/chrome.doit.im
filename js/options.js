@@ -1,6 +1,7 @@
 function logout(){
     localStorage.removeItem('user_auth');
     localStorage.removeItem('account');
+    localStorage.removeItem('all_tasks');
 }
 $(document).ready(function() {
 	if(!localStorage.getItem('user_auth')){

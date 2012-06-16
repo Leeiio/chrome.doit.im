@@ -221,7 +221,7 @@ function getProjects(callback) {
     var projects = [];
     $.get(PROJECTS_URL, function(data) {
         $.each(data.entities,function(i,o){
-            if(!o.completed && !o.trashed){
+            if(!o.completed && !o.trashed && o.status === 'active'){
                 projects.push(o);
             }
         });
@@ -462,7 +462,15 @@ function msg(obj){
         }
     });
 }
-
+//检查项目是否激活
+function checkProjectActive(project){
+    if(!project) return false;
+    if(project.status === 'inactive'){
+        return false;
+    }else{
+        return true;
+    }
+}
 //检查有无token
 function checkToken(){
     if(!localStorage.user_auth){//没有验证
@@ -488,11 +496,25 @@ function open_option(){
 function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
+            var project_id = tasks[i].project_id;
+            if(project_id){
+                var project_data = findObjByUUID(PROJECTS,project_id,true);
+                if(!checkProjectActive(project_data)){
+                    continue;
+                }
+            }     
             var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',tasks[i]);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
     }else{
+        var project_id = tasks.project_id;
+        if(project_id){
+            var project_data = findObjByUUID(PROJECTS,project_id,true);
+            if(!checkProjectActive(project_data)){
+                return;
+            }
+        }
         var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
@@ -555,6 +577,20 @@ function findNameByUUID(objs,uuid){
     });
     return name;
 };
+//根据uuid查找对象
+function findObjByUUID(array,uuid,clone){
+    for (var i = 0; i < array.length; i++) {
+        var data = array[i];
+        if (uuid === data.uuid) {
+            if(clone){
+                return cloneJSON(data);
+            }else{
+                return data;   
+            }
+        }
+    }
+    return null;
+}
 //从dom删除任务
 function slideUpTask(id){
     $('.task-wrap[dyna-id='+encodeURIComponent(id)+']').slideUp('normal',function(){

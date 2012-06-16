@@ -89,7 +89,11 @@ function setHeader(callback){
     });
     callback && callback();
 }
-
+//JSON数据对象拷贝
+function cloneJSON(json){
+    var string = JSON.stringify(json);
+    return JSON.parse(string);
+}
 //获得所有任务
 function getAllTasks(callback){
     var tasks = [];
@@ -222,6 +226,29 @@ function getProjects(callback) {
             }
         });
         callback && callback(projects);
+    });
+}
+//更新任务
+function updateTask(newtask,task,callback){
+    task.title = newtask.title;
+    var REST_URL = encodeURIComponent(task.uuid) + (task.repeat_no ? '?repeat_no=' + task.repeat_no : '');
+    $.ajax({
+        url: TASKS_URL + '/update/' + REST_URL,
+        data: task == null?'':JSON.stringify(task),
+        type: 'PUT',
+        contentType: 'application/json; charset=utf-8',
+        complete: function(resp) {
+            var status = resp.status;
+            if(status == 401) {
+                alert('请登录/Pls SignIn');
+            } else if(status == 200) {
+                callback && callback(task);
+            } else if(status == 400) {
+                //attr.onError(resp);
+            } else if(status == 500) {
+                //attr.onFailure(resp);
+            }
+        }
     });
 }
 //完成任务
@@ -461,12 +488,12 @@ function open_option(){
 function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
-            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',tasks[i]);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
     }else{
-        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-titile clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {

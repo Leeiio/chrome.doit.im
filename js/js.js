@@ -137,6 +137,23 @@ $(document).ready(function() {
                 return false;
             }
             
+            $('#tasks_list').delegate('.task-title','focus',function(){
+                // document.designMode = 'on';
+                var data = $(this).parent().data('task');
+            }).delegate('.task-title','blur',function(){
+                // document.designMode = 'off';
+                var data = $(this).parent().data('task');
+                var oldtitle = unescapeHTML(data.title);
+                var title = $(this).text();
+                if(oldtitle !== title){
+                    var newdata = cloneJSON(data);
+                    newdata.title = title;
+                    updateTask(newdata,data,function(){
+                        console.log('Done!');
+                    });
+                }
+            });
+
             $('#tasks_list').bind('click', function(e) {
                 var $t = $(e.target);
                 if($t.parents('#unfinished_tasks').length){

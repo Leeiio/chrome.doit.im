@@ -220,7 +220,7 @@ body{
     background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABAUlEQVR42qWT2wqCQBRFe+rLgyDoG/qjzLLUjHQmS81L5bW30+xAYRgMpYcNejxrcWbGmaw1fSoyE/FFaGB8MGAhmHuMU1GW1Lzfg4JeMIJdQXAvq2owjNRNQ67HIIghGAVXdU2W7VCSZgQWglGj7w8Wxsf7OMErz2lnHMjYm1iCIkBD+0FJ9niQvjUAiOcnarJAbCLsGA8iCb7HCWmb7beZX3zUVIF/vXVnvNF3FCfptyEIo65uWrYEK0s4uwyFLkfn1D5jAkz2WyBL5FxvgQL3noLrcQm2jw7qgwUIzrnbj7wofgp6f2XGLxRGUS8MBuy/l2nRXuelSDDiOgdgwH4A3wetETMppfEAAAAASUVORK5CYII=) no-repeat;
 }
 
-/*#finished_tasks .task-titile{
+/*#finished_tasks .task-title{
     text-decoration: line-through;
 }*/
 .delete-button-wrap{
@@ -283,9 +283,9 @@ body{
     /*background-position: 0px -36px;*/
     margin: 5px;
 }
-.task-titile{
+.task-title{
     display: inline-block;
-    width: 425px;
+    width: 410px;
     overflow: hidden;
     color: #333
 }

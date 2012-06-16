@@ -62,9 +62,9 @@
                     var slfPaddingTopS = $input.css('padding-top');
                     var slfPaddingTop = parseInt(slfPaddingTopS.substring(0,slfPaddingTopS.length-2),10);
                     if($pDiv.width() > $input.width()){
-                        $smartList.css({'left':$pDiv.position().left+$input.width()+'px'}).css({'top':$input.position().top+pntPaddingTop+$input.outerHeight()/2-1+'px'});
+                        $smartList.css({'left':$pDiv.position().left+$input.width()+'px'}).css({'top':$input.position().top+pntPaddingTop+$input.outerHeight()-1+'px'});
                     }else{
-                        $smartList.css({'left':$pDiv.position().left+$pDiv.width()+'px'}).css({'top':$input.position().top+pntPaddingTop+$input.outerHeight()/2-1+'px'});
+                        $smartList.css({'left':$pDiv.position().left+$pDiv.width()+'px'}).css({'top':$input.position().top+pntPaddingTop+$input.outerHeight()-1+'px'});
                     }
                     //}
                     var s = this.value;

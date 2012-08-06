@@ -499,7 +499,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
             var project_id = tasks[i].project_id;
             if(project_id){
                 var project_data = findObjByUUID(PROJECTS,project_id,true);
-                if(!checkProjectActive(project_data)){
+                if(project_data && !checkProjectActive(project_data)){
                     continue;
                 }
             }     
@@ -511,7 +511,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
         var project_id = tasks.project_id;
         if(project_id){
             var project_data = findObjByUUID(PROJECTS,project_id,true);
-            if(!checkProjectActive(project_data)){
+            if(project_data && !checkProjectActive(project_data)){
                 return;
             }
         }

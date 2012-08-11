@@ -237,7 +237,7 @@ $(document).ready(function() {
                     });
                     var project_reg = /^.*(\s\#\S.*)/;
                     var project_str = project_reg.exec(' '+smartAddString);
-                    project_str = project_str == null ? null : $.trim(project_str[1]).replace('#','');
+                    project_str = !project_str ? null : $.trim(project_str[1]).replace('#','');
                     if(project_str != null){
                         while($.inArray(project_str,projects_smart) == -1){
                             if(project_str.split(' ').length == 1) break;
@@ -259,7 +259,6 @@ $(document).ready(function() {
                         all_day : true,
                         attribute: 'inbox'
                     };
-
                     //task验证
                     if(task.title == '') {
                         M(L('TASK_VALI_TITLE_REQUIRED'));
@@ -267,7 +266,7 @@ $(document).ready(function() {
                     } else if(task.title.length > 225) {
                         M(L('TASK_VALI_TITLE_TOO_LONG'));
                         return false;
-                    } else if (project_str.length > 30){
+                    } else if (project_str && project_str.length > 30){
                         M(L('TASK_VALI_PROJECT_TOO_LONG'));
                         return false;
                     }

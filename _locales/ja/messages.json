@@ -1,0 +1,119 @@
+{
+    "Doitim": {
+        "message": "Doit.im"
+    },
+    "Add": {
+        "message": "追加"
+    },
+    "Processing": {
+        "message": "処理しています…"
+    },
+    "Uncompleted": {
+        "message": "未完了"
+    },
+    "Completed": {
+        "message": "完了"
+    },
+    "Inbox": {
+        "message": "収集箱"
+    },
+    "Next": {
+        "message": "次の行動"
+    },
+    "Overdue_and_Today": {
+        "message": "今日中"
+    },
+    "Scheduled": {
+        "message": "スケジュール"
+    },
+    "Someday": {
+        "message": "いつかやる"
+    },
+    "Today": {
+        "message": "今日"
+    },
+    "Yesterday": {
+        "message": "昨日"
+    },
+    "Earlier": {
+        "message": "より前"
+    },
+    "OK": {
+        "message": "OK"
+    },
+    "Cancel": {
+        "message": "キャンセル"
+    },
+    "Tomorrow": {
+        "message": "明日"
+    },
+    "Warning": {
+        "message": "ヒント"
+    },
+    "ARE_YOU_SURE_TO_DELETE_THE_TASK": {
+        "message": "削除しますか？"
+    },
+    "TASK_VALI_TITLE_REQUIRED": {
+        "message": "タイトルが必要です。"
+    },
+    "TASK_VALI_TITLE_TOO_LONG": {
+        "message": "タイトルは255字以内にしてください。"
+    },
+    "TASK_VALI_PROJECT_TOO_LONG": {
+        "message": "プロジェクト名は30字以内にしてください。"
+    },
+    "smart_add_shortcuts": {
+        "message": "スマート追加キイ"
+    },
+    "Close": {
+        "message": "閉じる"
+    },
+    "Project": {
+        "message": "プロジェクト"
+    },
+    "Date": {
+        "message": "期日"
+    },
+    "Success": {
+        "message": "完了しました。"
+    },
+    "Error": {
+        "message": "エラーしました。"
+    },
+    "Failure": {
+        "message": "失敗しました。"
+    },
+    "go_to_options_to_login_left": {
+        "message": "すぐログイン"
+    },
+    "go_to_options_to_login": {
+        "message": "設定"
+    },
+    "go_to_options_to_login_right": {
+        "message": "ログイン"
+    },
+    "option_sign_up_a_new_account_in_Doitim": {
+        "message": "登録"
+    },
+    "option_login_in_Doitim": {
+        "message": "Doit.imへログイン"
+    },
+    "option_dont_close_the_tab_on_logging_in": {
+        "message": "（ログイン時、このタグを閉じないでください。）"
+    },
+    "option_logout": {
+        "message": "ログアウト"
+    },
+    "background_add_select_text_left": {
+        "message": "タスクを“"
+    },
+    "background_add_select_text_right": {
+        "message": "Doit.imへ”"
+    },
+    "background_add_link": {
+        "message": "このリングをタスクとしてDoit.imへ追加"
+    },
+    "background_add_page_url": {
+        "message": "このウェブサイトをタスクとしてDoit.imへ保存"
+    }
+}

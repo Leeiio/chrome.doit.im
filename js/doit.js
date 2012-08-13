@@ -393,7 +393,7 @@ function getUnfinishedTasks(tasks){
     getSomedayTasks(function(tasks){
         
         $('.type-someday').next().html('');
-        
+
         addTasks(tasks,0,4);
         
         
@@ -497,7 +497,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
             var project_id = tasks[i].project_id;
-            if(project_id){
+            if(project_id && listIndex !== 4){
                 var project_data = findObjByUUID(PROJECTS,project_id,true);
                 if(project_data && !checkProjectActive(project_data)){
                     continue;

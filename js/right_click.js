@@ -75,8 +75,5 @@ var id_page = chrome.contextMenus.create({
         //alert('page '+OnClickData.pageUrl);
     }
 });
-showCount();
-getProjects();
-setInterval(function(){
-    showCount();
-},10000);
+// showCount();
+// getProjects();

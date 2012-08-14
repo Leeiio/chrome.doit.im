@@ -123,9 +123,18 @@ function getInboxTasks(callback){
 //获得过期以及今天的任务
 function getOverdueAndTodayTasks(callback) {
     var tasks = [];
+    PROJECTS = JSON.parse(localStorage.getItem('projects'));
     for(var i = 0; i<TASKS.length; i++){
         var tmp = TASKS[i];
+
         if(showTaskType(tmp) == UNFINISHED_OVERDUE_TODAY){
+            var project_id = tmp.project_id;
+            if(project_id){
+                var project_data = findObjByUUID(PROJECTS,project_id,true);
+                if(project_data && !checkProjectActive(project_data)){
+                    continue;
+                }
+            }
             tasks.push(tmp);
         }
     }
@@ -494,6 +503,7 @@ function open_option(){
 
 //添加任务
 function addTasks(tasks,finishIndex,listIndex,turn){
+    PROJECTS = JSON.parse(localStorage.getItem('projects'));
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
             var project_id = tasks[i].project_id;
@@ -598,9 +608,8 @@ function slideUpTask(id){
     });
 }
 //显示数字
-function showCount(callback){
+function showCount(){
     if(checkToken()){
-        callback && callback();
         setHeader(
             function(){
                 getProfile(function(profile){
@@ -614,10 +623,9 @@ function showCount(callback){
                             localStorage.removeItem('all_tasks');
                             localStorage.setItem('all_tasks',JSON.stringify(tasks));
                             //+++
-                            getOverdueAndTodayTasks(function(tasks){
-                                var count = tasks.length;
+                            getOverdueAndTodayTasks(function(today_tasks){
+                                var count = today_tasks.length;
                                 chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
-                                
                             });
                         });  
                 });

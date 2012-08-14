@@ -2,7 +2,7 @@
         加载完成
 ====================*/
 $(document).ready(function() {
-    //HTML国际化
+    //i18n
     var L = chrome.i18n.getMessage;
     $('#logo h1').text(L('Doitim'));
     $('#task_add_button_wrap button').text(L('Add'));
@@ -20,7 +20,6 @@ $(document).ready(function() {
     $('#msg_box_button_ok').text(L('OK'));
     $('#msg_box_button_cancel').text(L('Cancel'));
     $('#register').text(L('option_sign_up_a_new_account_in_Doitim'));
-    //HTML国际化结束啊
 
     $('#task_add_help a').popover({
         title:L('smart_add_shortcuts'),
@@ -30,7 +29,8 @@ $(document).ready(function() {
     setTimeout(function(){
         $('#signin_username').trigger('focus');
     },678);
-    //登录
+
+    //sign in
     $('.signin-form').bind('submit',function(){
         var username = $('#signin_username').val();
         var password = $('#signin_password').val();
@@ -69,20 +69,21 @@ $(document).ready(function() {
     });
 
     var _tmpFlag = checkToken();
-    //no 刷新
+    //show the tasks from localStorage
     var ts = JSON.parse(localStorage.getItem('all_tasks'));
     if(ts){
         for(var i = 0; i<ts.length; i++) {
             addTaskAuto(ts[i],'no');
         }
     }
-    //no 刷新
     function everything_init(){
         setTimeout(function(){
-            if( _tmpFlag ){//有料
-                setHeader(function(){//加入哦噢嗖
+            if( _tmpFlag ){
+                setHeader(function(){
                     getProjects(function(projects){
                         PROJECTS = projects;
+                        localStorage.removeItem('projects');
+                        localStorage.setItem('projects',JSON.stringify(PROJECTS));
                         getProfile(function(profile){
                             var user_timezone = profile.user_timezone.split('T')[1].split(')')[0].toString().replace(':','');//+0800
                             var username = profile.username;
@@ -112,7 +113,7 @@ $(document).ready(function() {
                         var projects_smart = [];
                         $.each(projects,function(i,item){
                             if(!item.trashed && !item.completed){
-                                projects_smart.push(unescapeHTML(item.name));    
+                                projects_smart.push(unescapeHTML(item.name));
                             }
                         });
     
@@ -130,9 +131,7 @@ $(document).ready(function() {
                         });
                     });
                 });
-            }else{//没料
-                // window.close();
-                // open_option();
+            }else{
                 return false;
             }
             
@@ -333,7 +332,6 @@ $(document).ready(function() {
                             //U.log(start_at_tmp+'m/d');
                         }else{
                             start_at_tmp = Date.today().toString('yyyy-MM-dd HH:mm:ss ')+PROFILE.USER_TIMEZONE;
-                            //U.log('today'); 
                         }
                         var date_split = start_at_tmp.split(' ');
                         start_at_tmp = date_split[0].replace(/-/g,'/') + ' ' + date_split[1] + ' ' + date_split[2];
@@ -351,4 +349,7 @@ $(document).ready(function() {
         },350)
     }
     everything_init();
+    setInterval(function(){
+        showCount();
+    },10000);
 });

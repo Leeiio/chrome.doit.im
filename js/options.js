@@ -1,7 +1,9 @@
-function logout(){
+function logout(callback){
     localStorage.removeItem('user_auth');
     localStorage.removeItem('account');
     localStorage.removeItem('all_tasks');
+    localStorage.removeItem('projects');
+    callback && callback();
 }
 $(document).ready(function() {
 	if(!localStorage.getItem('user_auth')){
@@ -30,7 +32,8 @@ $(document).ready(function() {
         $account_info.show();
 	}
 	$('#logout').unbind('click').bind('click', function (){
-	    logout();
-	    location.reload();
+		logout(function(){
+			location.reload();
+		});
 	});
 });

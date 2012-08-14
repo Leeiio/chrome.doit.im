@@ -137,10 +137,10 @@ $(document).ready(function() {
             
             $('#tasks_list').delegate('.task-title','focus',function(){
                 // document.designMode = 'on';
-                var data = $(this).parent().data('task');
+                var data = $(this).parents('.task-wrap').data('task');
             }).delegate('.task-title','blur',function(){
                 // document.designMode = 'off';
-                var data = $(this).parent().data('task');
+                var data = $(this).parents('.task-wrap').data('task');
                 var oldtitle = unescapeHTML(data.title);
                 var title = $(this).text();
                 if(oldtitle !== title){

@@ -284,10 +284,13 @@ body{
     margin: 5px;
 }
 .task-title{
-    display: inline-block;
-    width: 410px;
+    /*display: inline-block;*/
+    /*width: 410px;*/
     overflow: hidden;
     color: #333
+}
+.task-title:focus{
+    outline: none;
 }
 .type-open .task-type-flag{
     /*background-position: 0px -44px;*/

@@ -351,5 +351,5 @@ $(document).ready(function() {
     everything_init();
     setInterval(function(){
         showCount();
-    },10000);
+    },30000);
 });

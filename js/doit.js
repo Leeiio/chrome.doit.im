@@ -513,7 +513,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
                     continue;
                 }
             }     
-            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks[i].project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(tasks[i].title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks[i].project_id?'':'<div class="task-project left">'+unescapeHTML(findNameByUUID(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(tasks[i].title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',tasks[i]);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
@@ -525,7 +525,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
                 return;
             }
         }
-        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div>'+(tasks.project==null?'':'<div class="task-project left">'+unescapeHTML(findUUIDByName(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+unescapeHTML(tasks.title)+'</div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+        var $task = $('<div dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks.project_id?'':'<div class="task-project left">'+unescapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+unescapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+unescapeHTML(tasks.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {

@@ -221,7 +221,7 @@ function getProjects(callback) {
     var projects = [];
     $.get(PROJECTS_URL, function(data) {
         $.each(data.entities,function(i,o){
-            if(!o.completed && !o.trashed && o.status === 'active'){
+            if(!o.completed && !o.trashed){
                 projects.push(o);
             }
         });

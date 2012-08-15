@@ -77,3 +77,6 @@ var id_page = chrome.contextMenus.create({
 });
 // showCount();
 // getProjects();
+var autoGetNewTasks = setInterval(function(){
+    showCount();
+},30000);

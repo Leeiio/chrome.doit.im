@@ -349,7 +349,4 @@ $(document).ready(function() {
         },350)
     }
     everything_init();
-    setInterval(function(){
-        showCount();
-    },30000);
 });

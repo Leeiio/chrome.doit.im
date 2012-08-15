@@ -512,9 +512,11 @@ function addTasks(tasks,finishIndex,listIndex,turn){
                 if(project_data && !checkProjectActive(project_data)){
                     continue;
                 }
-            }     
-            var $task = $('<div dyna-id="'+encodeURIComponent(tasks[i].uuid)+'" title="'+tasks[i].title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks[i].project_id?'':'<div class="task-project left">'+unescapeHTML(findNameByUUID(PROJECTS,tasks[i].project_id))+'</div>')+'<div'+(!tasks[i].notes?'':' title="'+unescapeHTML(tasks[i].notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(tasks[i].title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
-            $task.data('task',tasks[i]);
+            }
+            var task = tasks[i];
+            task.project_name = findNameByUUID(PROJECTS,project_id);
+            var $task = $('<div dyna-id="'+encodeURIComponent(task.uuid)+'" title="'+task.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!task.project_id?'':'<div class="task-project left">'+unescapeHTML(findNameByUUID(PROJECTS,task.project_id))+'</div>')+'<div'+(!task.notes?'':' title="'+unescapeHTML(task.notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(task.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+            $task.data('task',task);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
     }else{

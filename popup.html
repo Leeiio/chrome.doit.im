@@ -145,6 +145,19 @@
     </div>
     <div id="shadow_div"></div>
 </div>
-
+<script id="tasknode" type="text/html">
+<div dyna-id="{{uuid}}" title="{{title}}" class="task-wrap">
+    <div class="complete-button left">
+        <a href="#"></a>
+    </div>
+    <div class="title-wrap">
+        {{#project_id}}<div class="task-project left">{{{project_name}}}</div>{{/project_id}}
+        <div {{#notes}}title="{{notes}}"{{/notes}} class="task-title clearfix" contenteditable="true">'+{{{title}}}+'</div>
+    </div>
+    <div class="delete-button-wrap">
+        <div class="delete-button" title="Delete it"></div>
+    </div>
+</div>
+</script>
 </body>
 </html>

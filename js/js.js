@@ -72,6 +72,13 @@ $(document).ready(function() {
     //show the tasks from localStorage
     var ts = JSON.parse(localStorage.getItem('all_tasks'));
     if(ts){
+        //check "projects" localStorage
+        if(!localStorage.getItem('projects')){
+            localStorage.removeItem('user_auth');
+            localStorage.removeItem('account');
+            localStorage.removeItem('all_tasks');
+            location.reload();
+        }
         for(var i = 0; i<ts.length; i++) {
             addTaskAuto(ts[i],'no');
         }

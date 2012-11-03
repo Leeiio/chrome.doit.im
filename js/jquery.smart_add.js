@@ -1,6 +1,6 @@
 ;(function($){
     $.smartAdd = {
-        rules : [{flag:'^',list:['今日','明日','择日待办','mm-dd','yy-mm-dd'],repeat:false,hr:3,className:['','','']},{flag:'#',list:['life','study','Doit.im','运动','办公'],repeat:false,hr:-1}],
+        rules : [{flag:'^',list:['今日','明日','将来/也许','mm-dd','yy-mm-dd'],repeat:false,hr:3,className:['','','']},{flag:'#',list:['life','study','Doit.im','运动','办公'],repeat:false,hr:-1}],
         getRules : function() {
             return $.smartAdd.rules;
         },

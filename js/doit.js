@@ -328,7 +328,7 @@ function postTask(task,callback) {
         complete: function(resp) {
             var status = resp.status;
             if(status == 401) {
-                alert('请登录/Pls SignIn');
+                alert('You must sign in to Doit.im first :(');
             } else if(status == 200) {
                 M(chrome.i18n.getMessage('Success'));
                 callback && callback(task);

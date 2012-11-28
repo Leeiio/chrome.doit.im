@@ -1,0 +1,7 @@
+.doitim-action i{
+    background:url(chrome-extension://__MSG_@@extension_id__/imgs/icon11.png) no-repeat;
+    width:11px;
+    height:11px;
+    margin-right: 5px;
+    margin-top: 1px;
+}

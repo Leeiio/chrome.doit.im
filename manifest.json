@@ -13,6 +13,10 @@
         {
             "js":[ "js/libs/jquery.min.js", "js/mails/gmail.js" ],
             "matches":[ "*://mail.google.com/*" ]
+        },{
+            "css": [ "css/social/twitter.css" ],
+            "js":[ "js/libs/jquery.min.js", "js/social/twitter.js" ],
+            "matches":[ "*://twitter.com/*" ]
         }
     ],
     "permissions":[
@@ -31,5 +35,5 @@
         "128":"imgs/icon128.png"
     },
     "default_locale":"en",
-    "web_accessible_resources": [ "imgs/icon16.png" ]
+    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon11.png" ]
 }

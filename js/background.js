@@ -24,8 +24,12 @@ chrome.extension.onMessage.addListener(function(a,b,c){
             start_at : null,
             completed : null,
             all_day : true,
-            tags:["Gmail"],
             attribute: 'inbox'
+        }
+        if(a.type === 'gmail'){
+            task.tags = ["Gmail"];
+        }else if(a.type === 'twitter'){
+            task.tags = ["Twitter"];
         }
         postTask(task,function(t){
             c({

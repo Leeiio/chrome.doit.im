@@ -34,6 +34,7 @@
         var data = {};
         data.content = mail_content;
         data.title = '[' + mail_sender + '] ' + mail_title;
+        data.type = 'gmail';
         sentMessage('Processing adding task to Doit.im...');
         chrome.extension.sendMessage(data,function(callback_data){
             if(callback_data.status === 'success'){

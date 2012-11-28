@@ -28,11 +28,11 @@ chrome.extension.onMessage.addListener(function(a,b,c){
             attribute: 'inbox'
         }
         postTask(task,function(t){
-
+            c({
+                status:'success',
+                message:'Added to Doit.im Inbox successfully :)'
+            });
         });
-        c({
-            status:'success',
-            message:_L('Success')
-        });
+        return true;
     }
 })

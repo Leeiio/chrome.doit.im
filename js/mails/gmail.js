@@ -19,13 +19,13 @@
         $(".b8.UC").css("visibility", "visible");
         setTimeout(function(){
             $(".b8.UC").css("visibility", "hidden");
-        },5E3);
+        },10E3);
     }
     $d.on('click', '#doitim_button', function(){
         var url = document.location.href;
         var mail_content = $.trim($('.ii').eq(0).text().split('\n').join(''));
         if(mail_content.length > 250){
-            mail_content = mail_content.substr(0,250) + '\n' + '...';
+            mail_content = mail_content.substr(0,250) + '...';
         }
         mail_content = url + '\n\n' + mail_content;
         var mail_title = $('.hP').text();
@@ -34,6 +34,7 @@
         var data = {};
         data.content = mail_content;
         data.title = '[' + mail_sender + '] ' + mail_title;
+        sentMessage('Processing adding task to Doit.im...');
         chrome.extension.sendMessage(data,function(callback_data){
             if(callback_data.status === 'success'){
                 sentMessage(callback_data.message);

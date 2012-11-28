@@ -17,6 +17,9 @@
             "css": [ "css/social/twitter.css" ],
             "js":[ "js/libs/jquery.min.js", "js/social/twitter.js" ],
             "matches":[ "*://twitter.com/*" ]
+        },{
+            "js":[ "js/libs/jquery.min.js", "js/social/weibo.js" ],
+            "matches":[ "*://weibo.com/*" ]
         }
     ],
     "permissions":[

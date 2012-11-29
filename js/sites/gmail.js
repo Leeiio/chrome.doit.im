@@ -103,4 +103,16 @@
            alert(title)
         });
     });
+//    var port = chrome.extension.connect();
+    window.addEventListener("message", function(event) {
+        // We only accept messages from ourselves
+        if (event.source != window)
+            return;
+        if (event.data.type && (event.data.type == "FROM_PAGE")) {
+            console.log("Content script received: " + event.data.text);
+            console.log(event.data.object[2][15][3])
+//            port.postMessage(event.data.text);
+        }
+    }, false);
+    $('body').append('<script src="' + chrome.extension.getURL("js/sites/gmail_message.js") + '"></script>');
 })(jQuery);

@@ -39,5 +39,5 @@
         "128":"imgs/icon128.png"
     },
     "default_locale":"en",
-    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon11.png" ]
+    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon11.png","js/sites/gmail_message.js" ]
 }

@@ -73,4 +73,34 @@
         $popupmenu.find('.doitim-input-notes').val(mail_content);
         $popupmenu.find('.doitim-input-tags').val('Gmail');
     });
+    //list
+    $d.on('click', '.nf', function(){
+        setTimeout(function(){
+            var $popup = $('.jQjAxd:visible');
+            if($('.x7:visible').length){
+                if(!$popup.hasClass('added-doitim')){
+                    $popup.addClass('added-doitim');
+                    var $node = $('<div class="J-N addto-doitim-item" role="menuitem" style="-webkit-user-select: none;" id=":ss"><div class="J-N-Jz" style="-webkit-user-select: none;">Add to Doit.im</div></div>');
+                    $popup.find('.SK').append($node);
+                }else{
+                    $('.addto-doitim-item').show();
+                }
+            }else{
+                if($popup.hasClass('added-doitim')){
+                    $('.addto-doitim-item').hide();
+                }
+            }
+        },100);
+    });
+    $d.on('hover', '.addto-doitim-item', function(){
+        $(this).toggleClass("J-N-JT");
+    });
+    $d.on('click', '.addto-doitim-item', function(){
+        var $x7 = $('.x7:visible');
+        if(!$x7.length) return;
+        $x7.each(function(i){
+           var title = $(this).find('.y6').children('span').first().text();
+           alert(title)
+        });
+    });
 })(jQuery);

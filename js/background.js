@@ -31,7 +31,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
         }else if(a.type === 'twitter'){
             task.tags = ["Twitter"];
         }else if(a.type === 'weibo'){
-            task.tags = ["微博"];
+            task.tags = ["Weibo","Read Later"];
         }
         postTask(task,function(t){
             c({

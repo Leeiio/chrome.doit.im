@@ -32,11 +32,15 @@ $(function () {
 
     function addTweet(action){
         var $tweet = $(action).parents('div.WB_detail'),
-            tweetURL = twitterBaseURL + $tweet.children('.WB_func').find('.WB_time').attr('href'),
-            twitter_username = $tweet.children('.WB_info').find('.WB_name').text(),
-            tweetTEXT = $.trim($tweet.children('.WB_text').text());
+            tweetURL = twitterBaseURL + $tweet.find('.WB_time:last').attr('href'),
+            twitter_username = $tweet.children('.WB_info').find('.WB_name').text() || $('#pl_profile_hisInfo .name').text() || $('#pl_profile_myInfo .name').text(),
+            tweetTEXT = $.trim($tweet.find('.WB_text:first').text());
 
-        var title = twitter_username + ": " + tweetTEXT;
+        if(twitter_username){
+            var title = twitter_username + ": " + tweetTEXT;
+        }else{
+            var title = tweetTEXT;
+        }
         title = title.replace('\n\t\t\t\t','');
         if(title.length > 255){
             title = title.substr(0,252) + '...';

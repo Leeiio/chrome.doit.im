@@ -11,14 +11,15 @@
     },
     "content_scripts":[
         {
-            "js":[ "js/libs/jquery.min.js", "js/mails/gmail.js" ],
+            "css": [ "css/sites/gmail.css" ],
+            "js":[ "js/libs/jquery.min.js", "js/sites/gmail.js" ],
             "matches":[ "*://mail.google.com/*" ]
         },{
-            "css": [ "css/social/twitter.css" ],
-            "js":[ "js/libs/jquery.min.js", "js/social/twitter.js" ],
+            "css": [ "css/sites/twitter.css" ],
+            "js":[ "js/libs/jquery.min.js", "js/sites/twitter.js" ],
             "matches":[ "*://twitter.com/*" ]
         },{
-            "js":[ "js/libs/jquery.min.js", "js/social/weibo.js" ],
+            "js":[ "js/libs/jquery.min.js", "js/sites/weibo.js" ],
             "matches":[ "*://weibo.com/*" ]
         }
     ],

@@ -1,0 +1,20 @@
+#doitim_button:focus{
+    border-color: rgba(0, 0, 0, 0.15) !important;
+}
+.doitim-menu input,
+.doitim-menu textarea{
+    border:1px solid #ccc;
+    padding: 6px 7px;
+    outline: none;
+    width: 94%;
+}
+.doitim-item{
+    padding: 0 10px !important;
+}
+.doitim-item label{
+    display: block;
+    line-height: 30px;
+}
+.doitim-item.doitim-foot{
+    text-align: right;
+}

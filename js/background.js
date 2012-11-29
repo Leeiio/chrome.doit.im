@@ -27,7 +27,11 @@ chrome.extension.onMessage.addListener(function(a,b,c){
             attribute: 'inbox'
         }
         if(a.type === 'gmail'){
-            task.tags = ["Gmail"];
+            if(a.tags){
+                task.tags = a.tags;
+            }else{
+                task.tags = ["Gmail"];
+            }
         }else if(a.type === 'twitter'){
             task.tags = ["Twitter"];
         }else if(a.type === 'weibo'){

@@ -21,7 +21,11 @@
         },{
             "js":[ "js/libs/jquery.min.js", "js/sites/weibo.js" ],
             "matches":[ "*://weibo.com/*" ]
+        },{
+            "js":[ "js/libs/jquery.min.js", "js/sites/qmail.js" ],
+            "matches":[ "*://mail.qq.com/*" ]
         }
+
     ],
     "permissions":[
         "tabs",

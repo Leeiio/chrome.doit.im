@@ -3,7 +3,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
     if(!localStorage.getItem('user_auth')){
         c({
             status:'error',
-            message:'You must sign in to Doit.im first :('
+            message:'你必须先在扩展中 <a target="_blank" href="' + chrome.extension.getURL("options.html") + '">登录</a> Doit.im :('
         });
     }else{
         var addBasicAuth = function(){
@@ -26,21 +26,29 @@ chrome.extension.onMessage.addListener(function(a,b,c){
             all_day : true,
             attribute: 'inbox'
         }
-        if(a.type === 'gmail'){
-            if(a.tags){
-                task.tags = a.tags;
-            }else{
-                task.tags = ["Gmail"];
-            }
-        }else if(a.type === 'twitter'){
-            task.tags = ["Twitter"];
-        }else if(a.type === 'weibo'){
-            task.tags = ["Weibo","Read Later"];
+        switch(a.type){
+            case 'gmail':
+                if(a.tags){
+                    task.tags = a.tags;
+                }else{
+                    task.tags = ["Gmail"];
+                }
+                break;
+            case 'twitter':
+                task.tags = ["Twitter"];
+                break;
+            case 'weibo':
+                task.tags = ["微博","Read Later"];
+                break;
+            case 'qmail':
+                task.tags = ["QQ Mail"];
+                break;
+            default :
         }
         postTask(task,function(t){
             c({
                 status:'success',
-                message:'Added to Doit.im Inbox successfully :)'
+                message:'已成功添加到Doit.im收集箱。'
             });
         });
         return true;

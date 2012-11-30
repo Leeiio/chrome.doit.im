@@ -38,7 +38,7 @@
         data.title = $node.find('.doitim-input-title').val();
         data.tags  = newTags;
         data.type = 'gmail';
-        sentMessage('Processing adding task to Doit.im...');
+        sentMessage('正在添加任务到Doit.im...');
         chrome.extension.sendMessage(data,function(callback_data){
             if(callback_data.status === 'success'){
                 sentMessage(callback_data.message);

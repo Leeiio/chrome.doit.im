@@ -43,6 +43,12 @@ chrome.extension.onMessage.addListener(function(a,b,c){
             case 'qmail':
                 task.tags = ["QQ Mail"];
                 break;
+            case 'outlook':
+                task.tags = ["Outlook"];
+                break;
+            case 'pinboard':
+                task.tags = ["Pinboard"];
+                break;
             default :
         }
         postTask(task,function(t){

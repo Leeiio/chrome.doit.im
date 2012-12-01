@@ -1,17 +1,22 @@
 $(function () {
     if(window.top != window) return;
 
-    function showMessage(message,elem){
-        var $node = $(elem).find('.doitim-btn');
-        var origText = $node.text();
+    function showMessage(data,elem){
+        var $node = $(elem).find('.doitim-btn').parent();
+        var origHTML = $node.html();
         $node.fadeOut(function(){
-            $(this).text(message).fadeIn();
+            $(this).html(data.message).fadeIn();
+            if(data.status == 'error'){
+                setTimeout(function(){
+                    $node.html(origHTML);
+                },5e3);
+            }
         });
     }
 
     function addToPinboardList(actionList) {
         $(actionList).addClass('doitim-action');
-        $(actionList).find('.edit_links').append('<div style="display: inline;margin-left: 10px;"><a style="color: #00ADFF" href="javascript:void(0);" title="添加到Doit.im" class="doitim-btn">Add to Doit.im</a></div>');
+        $(actionList).find('.edit_links').append('<div style="display: inline;margin-left: 10px;color: #aaa;"><a style="color: #00ADFF" href="javascript:void(0);" title="添加到Doit.im" class="doitim-btn">Add to Doit.im</a></div>');
     }
 
     function addToPinboard(pins) {
@@ -35,7 +40,7 @@ $(function () {
             content:link
         };
         chrome.extension.sendMessage(data,function(callback_data){
-            showMessage(callback_data.message,$pin);
+            showMessage(callback_data,$pin);
         });
 
         return false;

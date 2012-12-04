@@ -8,7 +8,7 @@ $(function () {
     function addToOutlook(){
         var $doitim = $('.addto-doitim:visible');
         if($doitim.length && !$doitim.parents('.c_cmore').length) return;
-        var subject = $('.ReadMsgSubject').text();
+        var subject = $('.ReadMsgSubject:visible').text();
         var $toolbar = $('.c_cc');
         if(subject && $toolbar.length){
             $('.addto-doitim').remove();

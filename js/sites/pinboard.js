@@ -16,7 +16,7 @@ $(function () {
 
     function addToPinboardList(actionList) {
         $(actionList).addClass('doitim-action');
-        $(actionList).find('.edit_links').append('<div style="display: inline;margin-left: 10px;color: #aaa;"><a style="color: #00ADFF" href="javascript:void(0);" title="添加到Doit.im" class="doitim-btn">Add to Doit.im</a></div>');
+        $(actionList).find('.edit_links').append('<div style="display: inline;margin-left: 10px;color: #aaa;"><a style="color: #00ADFF" href="javascript:void(0);" title="'+L("sites_button_add_to")+'" class="doitim-btn">'+L("sites_button_add_to")+'</a></div>');
     }
 
     function addToPinboard(pins) {

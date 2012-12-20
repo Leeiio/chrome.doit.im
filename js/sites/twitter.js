@@ -19,7 +19,7 @@ $(function () {
     }
 
     function addToTwitterList(actionList) {
-        $(actionList).append('<li class="action-addto-doitim"><a href="#" class="doitim-action new" data-tweet-id="" title="add to Doit.im"><span><i></i><b>Doit.im</b></span></a></li>');
+        $(actionList).append('<li class="action-addto-doitim"><a href="#" class="doitim-action new" data-tweet-id="" title="'+L("sites_button_add_to")+'"><span><i></i><b>Doit.im</b></span></a></li>');
     }
 
     function addToTwitter(tweets) {

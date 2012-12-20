@@ -26,13 +26,13 @@ $(function () {
         var $toolbar = $iframe.find('.toolbgline');
         var $reopen = $iframe.find('.qm_ico_reopen');
         if(subject && $toolbar.length && $reopen.length){
-            var $dom = $('<div class="btn_space left addto-doitim" style="margin-left:3px"><a class="btn_gray" href="javascript:window.parent.Doitim.postMessage();"><img style="height: 13px;width: 13px;vertical-align: -2px;margin-right: 5px" src="' + chrome.extension.getURL("imgs/icon16.png") + '"/ ><span class="btn_select_txt">添加到Doit.im</span></a></div>');
+            var $dom = $('<div class="btn_space left addto-doitim" style="margin-left:3px"><a class="btn_gray" href="javascript:window.parent.Doitim.postMessage();"><img style="height: 13px;width: 13px;vertical-align: -2px;margin-right: 5px" src="' + chrome.extension.getURL("imgs/icon16.png") + '"/ ><span class="btn_select_txt">'+L("sites_button_add_to")+'</span></a></div>');
             $toolbar.find('.qm_left').append($dom);
         }
     }
 
     function addToDoit(data){
-        showMessage('正在添加邮件到Doit.im收集箱...');
+        showMessage(L("sites_posting"));
         chrome.extension.sendMessage(data,function(callback_data){
             showMessage(callback_data.message,true);
         });

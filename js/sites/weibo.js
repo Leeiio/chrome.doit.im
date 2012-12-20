@@ -21,7 +21,7 @@ $(function () {
 
     function addToTwitterList(actionList) {
         $(actionList).addClass('doitim-action');
-        $(actionList).find('.WB_handle:last').append('<i class="S_txt3">|</i><a href="javascript:void(0);" title="添加到Doit.im" class="doitim-btn">Doit.im</a>');
+        $(actionList).find('.WB_handle:last').append('<i class="S_txt3">|</i><a href="javascript:void(0);" title="'+L("sites_button_add_to")+'" class="doitim-btn">Doit.im</a>');
     }
 
     function addToTwitter(tweets) {

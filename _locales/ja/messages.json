@@ -115,5 +115,14 @@
     },
     "background_add_page_url": {
         "message": "このウェブサイトをタスクとしてDoit.imへ保存"
+    },
+    "sites_posting": {
+        "message": "Adding to Doit.im..."
+    },
+    "sites_button_add_to": {
+        "message": "Add to Doit.im"
+    },
+    "sites_added_successful": {
+        "message": "Added to Inbox successfully."
     }
 }

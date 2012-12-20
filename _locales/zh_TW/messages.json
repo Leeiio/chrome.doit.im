@@ -27,7 +27,7 @@
         "message": "日程"
     },
     "Someday": {
-        "message": "擇日待辦"
+        "message": "將來/也許"
     },
     "Today": {
         "message": "今天"
@@ -115,5 +115,14 @@
     },
     "background_add_page_url": {
         "message": "將本頁地址加爲Doit.im的任務"
+    },
+    "sites_posting": {
+        "message": "正在添加任務到Doit.im..."
+    },
+    "sites_button_add_to": {
+        "message": "添加到Doit.im"
+    },
+    "sites_added_successful": {
+        "message": "已成功添加到Doit.im收集箱。"
     }
 }

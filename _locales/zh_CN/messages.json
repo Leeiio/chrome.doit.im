@@ -115,5 +115,14 @@
     },
     "background_add_page_url": {
         "message": "将本页地址加为Doit.im的任务"
+    },
+    "sites_posting": {
+        "message": "正在添加任务到Doit.im..."
+    },
+    "sites_button_add_to": {
+        "message": "添加到Doit.im"
+    },
+    "sites_added_successful": {
+        "message": "已成功添加到Doit.im收集箱。"
     }
 }

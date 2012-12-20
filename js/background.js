@@ -1,9 +1,9 @@
-var _L = chrome.i18n.getMessage;
+var L = chrome.i18n.getMessage;
 chrome.extension.onMessage.addListener(function(a,b,c){
     if(!localStorage.getItem('user_auth')){
         c({
             status:'error',
-            message:'你必须先在扩展中 <a target="_blank" href="' + chrome.extension.getURL("options.html") + '">登录</a> Doit.im :('
+            message:'You must <a target="_blank" href="' + chrome.extension.getURL("options.html") + '">sign in</a> first in the Chrome extension of Doit.im :('
         });
     }else{
         var addBasicAuth = function(){
@@ -54,7 +54,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
         postTask(task,function(t){
             c({
                 status:'success',
-                message:'已成功添加到Doit.im收集箱。'
+                message:L("sites_added_successful")
             });
         });
         return true;

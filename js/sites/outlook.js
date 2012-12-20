@@ -12,7 +12,7 @@ $(function () {
         var $toolbar = $('.c_cc');
         if(subject && $toolbar.length){
             $('.addto-doitim').remove();
-            var $dom = $('<li class="addto-doitim"><a href="#" title="添加到Doit.im">添加到Doit.im</a></li>');
+            var $dom = $('<li class="addto-doitim"><a href="#" title="'+L("sites_button_add_to")+'">'+L("sites_button_add_to")+'</a></li>');
             $dom.insertBefore($toolbar.find('.c_cmore'));
         }
     }
@@ -41,7 +41,7 @@ $(function () {
     }
 
     function addToDoit(data){
-        showMessage('正在添加邮件到Doit.im收集箱...');
+        showMessage(L("sites_posting"));
         chrome.extension.sendMessage(data,function(callback_data){
             showMessage(callback_data.message,true);
         });

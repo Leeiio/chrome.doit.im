@@ -54,7 +54,7 @@
         $(this).toggleClass('T-I-Kq');
 
         if(!$('.doitim-menu').length){
-            var $popupmenu = $('<div class="J-M jQjAxd doitim-menu" style="-webkit-user-select: none;top: 29px;min-width: 280px; display: none;" role="menu" aria-haspopup="true" aria-activedescendant=""><div class="SK AX" style="-webkit-user-select: none; min-width: 64px;"><div class="J-N doitim-item" role="menuitem" data-id="0" style="-webkit-user-select: none; "><label style="-webkit-user-select: none;">Title:</label><input class="doitim-input-title" /></div><div class="J-N doitim-item" role="menuitem" data-id="0" style="-webkit-user-select: none; "><label style="-webkit-user-select: none;">Description:</label><textarea rows="6" class="doitim-input-notes"></textarea></div><div class="J-N doitim-item" role="menuitem" data-id="0" style="-webkit-user-select: none; "><label style="-webkit-user-select: none;">Tags(Separate with ","):</label><input class="doitim-input-tags" /></div><div class="J-N doitim-item doitim-foot" role="menuitem" data-id="0" style="-webkit-user-select: none; "><div id="doitim_add" class="T-I J-J5-Ji aoO T-I-atl L3" role="button" tabindex="1" style="-webkit-user-select: none;">Add</div></div></div></div>');
+            var $popupmenu = $('<div class="J-M jQjAxd doitim-menu" style="-webkit-user-select: none;top: 29px;min-width: 280px; display: none;" role="menu" aria-haspopup="true" aria-activedescendant=""><div class="SK AX" style="-webkit-user-select: none; min-width: 64px;"><div class="J-N doitim-item" role="menuitem" data-id="0" style="-webkit-user-select: none; "><label style="-webkit-user-select: none;">'+L("sites_addform_title")+':</label><input class="doitim-input-title" /></div><div class="J-N doitim-item" role="menuitem" data-id="0" style="-webkit-user-select: none; "><label style="-webkit-user-select: none;">'+L("sites_addform_description")+':</label><textarea rows="6" class="doitim-input-notes"></textarea></div><div class="J-N doitim-item" role="menuitem" data-id="0" style="-webkit-user-select: none; "><label style="-webkit-user-select: none;">'+L("sites_addform_tagline")+':</label><input class="doitim-input-tags" /></div><div class="J-N doitim-item doitim-foot" role="menuitem" data-id="0" style="-webkit-user-select: none; "><div id="doitim_add" class="T-I J-J5-Ji aoO T-I-atl L3" role="button" tabindex="1" style="-webkit-user-select: none;">'+L("Add")+'</div></div></div></div>');
             $(this).parent().append($popupmenu);
         }else{
             var $popupmenu = $('.doitim-menu');
@@ -104,16 +104,16 @@
            alert(title)
         });
     });
-//    var port = chrome.extension.connect();
-    window.addEventListener("message", function(event) {
-        // We only accept messages from ourselves
-        if (event.source != window)
-            return;
-        if (event.data.type && (event.data.type == "FROM_PAGE")) {
-            console.log("Content script received: " + event.data.text);
-            console.log(event.data.object[2][15][3])
-//            port.postMessage(event.data.text);
-        }
-    }, false);
+//    //var port = chrome.extension.connect();
+//    window.addEventListener("message", function(event) {
+//        // We only accept messages from ourselves
+//        if (event.source != window)
+//            return;
+//        if (event.data.type && (event.data.type == "FROM_PAGE")) {
+//            console.log("Content script received: " + event.data.text);
+//            console.log(event.data.object[2][15][3])
+////            port.postMessage(event.data.text);
+//        }
+//    }, false);
 //    $('body').append('<script src="' + chrome.extension.getURL("js/sites/gmail_message.js") + '"></script>');
 })(jQuery);

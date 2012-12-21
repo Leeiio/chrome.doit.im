@@ -124,5 +124,26 @@
     },
     "sites_added_successful": {
         "message": "Added to Inbox successfully."
+    },
+    "sites_addform_title": {
+        "message": "Title"
+    },
+    "sites_addform_description": {
+        "message": "Description"
+    },
+    "sites_addform_tagline": {
+        "message": "Tags(Separate with ',')"
+    },
+    "sites_signin_first": {
+        "message": "You must <a target='_blank' href='$details$'>sign in</a> first in the Chrome extension of Doit.im :(",
+        "placeholders": {
+            "details": {
+                "content": "$1",
+                "example": "http://leeiio.me"
+            }
+        }
+    },
+    "sites_signin_first_nolink": {
+        "message": "You must sign in first in the Chrome extension of Doit.im :("
     }
 }

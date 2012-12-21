@@ -1,6 +1,6 @@
 $(function () {
     if(window.top != window) return;
-
+    var L = chrome.i18n.getMessage;
     function showMessage(data,elem){
         var $node = $(elem).find('.doitim-btn').parent();
         var origHTML = $node.html();

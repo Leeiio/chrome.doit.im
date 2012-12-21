@@ -1,6 +1,6 @@
 $(function () {
     if(window.top != window) return;
-
+    var L = chrome.i18n.getMessage;
     function showMessage(message){
         alert(message);
     }
@@ -36,7 +36,11 @@ $(function () {
         };
         console.log(JSON.stringify(data,null,4))
         chrome.extension.sendMessage(data,function(callback_data){
-            showMessage(callback_data.message);
+            if(callback_data.status === 'error'){
+                showMessage(L("sites_signin_first_nolink"));
+            }else{
+                showMessage(callback_data.message);
+            }
         });
     }
 

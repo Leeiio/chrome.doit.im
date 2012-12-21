@@ -124,5 +124,26 @@
     },
     "sites_added_successful": {
         "message": "已成功添加到Doit.im收集箱。"
+    },
+    "sites_addform_title": {
+        "message": "标题"
+    },
+    "sites_addform_description": {
+        "message": "描述"
+    },
+    "sites_addform_tagline": {
+        "message": "标签(用 ','分隔)"
+    },
+    "sites_signin_first": {
+        "message": "请先在扩展中<a target='_blank' href='$details$'>登录</a> :(",
+        "placeholders": {
+            "details": {
+                "content": "$1",
+                "example": "http://leeiio.me"
+            }
+        }
+    },
+    "sites_signin_first_nolink": {
+        "message": "请先在扩展中登录 :("
     }
 }

@@ -1,12 +1,12 @@
 $(function () {
     if(window.top != window) return;
-
+    var L = chrome.i18n.getMessage;
     var twitterBaseURL = "http://twitter.com";
 
     function showMessage(message){
         $('body').removeClass('pushing-state');
         var $message = $('#message-drawer');
-        $message.find('.message-text').text(message);
+        $message.find('.message-text').html(message);
         $message.find('.dismiss').hide();
         $message.fadeIn(function(){
             $message.removeClass('hidden');

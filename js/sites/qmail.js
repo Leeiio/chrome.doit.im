@@ -1,6 +1,6 @@
 $(function () {
     if(window.top != window) return;
-
+    var L = chrome.i18n.getMessage;
     var BaseURL = "https://mail.qq.com";
 
     function showMessage(message,hide){

@@ -3,7 +3,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
     if(!localStorage.getItem('user_auth')){
         c({
             status:'error',
-            message:'You must <a target="_blank" href="' + chrome.extension.getURL("options.html") + '">sign in</a> first in the Chrome extension of Doit.im :('
+            message:L("sites_signin_first",chrome.extension.getURL("options.html"))
         });
     }else{
         var addBasicAuth = function(){
@@ -38,7 +38,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
                 task.tags = ["Twitter"];
                 break;
             case 'weibo':
-                task.tags = ["微博","Read Later"];
+                task.tags = ["微博"];
                 break;
             case 'qmail':
                 task.tags = ["QQ Mail"];

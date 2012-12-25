@@ -22,9 +22,6 @@
             "js":[ "js/libs/jquery.min.js", "js/sites/weibo.js" ],
             "matches":[ "*://weibo.com/*" ]
         },{
-            "js":[ "js/libs/jquery.min.js", "js/sites/qmail.js" ],
-            "matches":[ "*://mail.qq.com/*" ]
-        },{
             "js":[ "js/libs/jquery.min.js", "js/sites/outlook.js" ],
             "matches":[ "*://*.mail.live.com/*" ]
         },{

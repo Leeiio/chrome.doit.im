@@ -4,7 +4,7 @@
             var BaseURL = "https://mail.qq.com";
             var $iframe = $('#mainFrame').contents();
             var subject = $iframe.find('#subject').text();
-            var content = $iframe.find('#mailContentContainer').text();
+            var content = $iframe.find('#contentDiv0').text();
             if(content.length > 250){
                 content = content.substr(0,250) + '...';
             }
@@ -19,6 +19,7 @@
                 title:title,
                 content:content
             };
+            console.log(data)
             window.postMessage({ type: "FROM_PAGE", text: "Hello from the QQ mail webpage!", object: data }, "*");
         }
     };

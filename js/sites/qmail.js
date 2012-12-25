@@ -52,7 +52,7 @@ $(function () {
                 addToDoit(event.data.object);
             }
         }, false);
-        $('body').append('<script src="' + chrome.extension.getURL("js/sites/qmail_message.js") + '"></script><script src="' + chrome.extension.getURL("js/libs/jquery.min.js") + '"></script>');
+        $('body').append('</script><script src="' + chrome.extension.getURL("js/libs/jquery.min.js") + '"></script><script src="' + chrome.extension.getURL("js/sites/qmail_message.js") + '">');
     }
 
     initialize();

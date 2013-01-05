@@ -3,6 +3,7 @@ function logout(callback){
     localStorage.removeItem('account');
     localStorage.removeItem('all_tasks');
     localStorage.removeItem('projects');
+    localStorage.removeItem('data_zone');
     callback && callback();
 }
 $(document).ready(function() {
@@ -42,6 +43,26 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#register').text(L('option_sign_up_a_new_account_in_Doitim'));
         $('#auth_logout').text(L('option_logout'));
+
+        $('#signin_username').attr('placeholder', L('signin_username'));
+        $('#signin_password').attr('placeholder', L('signin_password'));
+        $('.forget-password a').text(L('signin_forgetpwd'));
+        $('#signin_submit').text(L('signin_submit'));
+
+        $('.data-zone .data-zone-us').text(L('web_signin_data_zone_global'));
+        $('.data-zone .data-zone-cn').text(L('web_signin_data_zone_mainland'));
+        //change data zone
+        $('.data-zone span').bind('click',function(){
+            if($(this).hasClass('data-zone-us')){
+                $(this).hide();
+                $('.data-zone .data-zone-cn').show();
+                setAPI('jp');
+            }else{
+                $(this).hide();
+                $('.data-zone .data-zone-us').show();
+                setAPI('cn');
+            }
+        });
         //登录
         $('.signin-form').bind('submit',function(){
             var username = $('#signin_username').val();

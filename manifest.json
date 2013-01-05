@@ -34,7 +34,9 @@
         "tabs",
         "contextMenus",
         "https://*.doit.im/",
-        "http://*.doit.im/"
+        "http://*.doit.im/",
+        "https://*.doitim.com/",
+        "http://*.doitim.com/"
     ],
     "options_page":"options.html",
     "background":{

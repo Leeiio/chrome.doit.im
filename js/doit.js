@@ -1,13 +1,20 @@
 /*====================
         全局变量
 ====================*/
-var API_URL = 'https://api4.doit.im/2/';
-var PROFILE_URL = 'https://api4.doit.im/2/accounts/info';
-var TASKS_URL = API_URL + 'tasks';
-var PROJECTS_URL = 'https://api4.doit.im/2/projects';
-var TRASHTASK_URL = API_URL + 'tasks/trash/';
-var COMPLETETASK_URL = API_URL + 'tasks/complete/';
-var UNCOMPLETETASK_URL = API_URL + 'tasks/uncomplete/';
+function setAPI(zone){
+    if(zone){
+        localStorage.setItem('data_zone',zone);
+    }
+    var data_zone = localStorage.getItem('data_zone') || 'jp';
+    API_URL = data_zone === 'jp' ? 'https://api4.doit.im/2/' : 'https://apicn.doitim.com/2/';
+    PROFILE_URL = API_URL + 'accounts/info';
+    TASKS_URL = API_URL + 'tasks';
+    PROJECTS_URL = API_URL + 'projects';
+    TRASHTASK_URL = API_URL + 'tasks/trash/';
+    COMPLETETASK_URL = API_URL + 'tasks/complete/';
+    UNCOMPLETETASK_URL = API_URL + 'tasks/uncomplete/';
+}
+setAPI();
 
 var PROFILE = {};
 var TASKS = [];

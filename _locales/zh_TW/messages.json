@@ -145,5 +145,23 @@
     },
     "sites_signin_first_nolink": {
         "message": "請先在擴展中登錄 :("
+    },
+    "web_signin_data_zone_mainland": {
+        "message": "我是中國大陸服務器用戶"
+    },
+    "web_signin_data_zone_global": {
+        "message": "我是美國和日本服務器用戶"
+    },
+    "signin_username": {
+        "message": "用戶名"
+    },
+    "signin_password": {
+        "message": "密碼"
+    },
+    "signin_forgetpwd": {
+        "message": "忘記密碼？"
+    },
+    "signin_submit": {
+        "message": "提交"
     }
 }

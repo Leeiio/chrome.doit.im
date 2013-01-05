@@ -145,5 +145,23 @@
     },
     "sites_signin_first_nolink": {
         "message": "请先在扩展中登录 :("
+    },
+    "web_signin_data_zone_mainland": {
+        "message": "我是中国大陆服务器用户"
+    },
+    "web_signin_data_zone_global": {
+        "message": "我是美国和日本服务器用户"
+    },
+    "signin_username": {
+        "message": "用户名"
+    },
+    "signin_password": {
+        "message": "密码"
+    },
+    "signin_forgetpwd": {
+        "message": "忘记密码？"
+    },
+    "signin_submit": {
+        "message": "提交"
     }
 }

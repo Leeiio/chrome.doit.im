@@ -145,5 +145,23 @@
     },
     "sites_signin_first_nolink": {
         "message": "You must sign in first in the Chrome extension of Doit.im :("
+    },
+    "web_signin_data_zone_mainland": {
+        "message": "For users of Mainland Server"
+    },
+    "web_signin_data_zone_global": {
+        "message": "For users of US and Japan's Server"
+    },
+    "signin_username": {
+        "message": "Username"
+    },
+    "signin_password": {
+        "message": "Password"
+    },
+    "signin_forgetpwd": {
+        "message": "Forgot password?"
+    },
+    "signin_submit": {
+        "message": "Submit"
     }
 }

@@ -42,7 +42,8 @@ $(document).ready(function() {
     //for options.html
     var L = chrome.i18n.getMessage;
     $(document).ready(function() {
-        $('#register').text(L('option_sign_up_a_new_account_in_Doitim'));
+        $('#register_jp').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_jp'));
+        $('#register_cn').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_cn'));
         $('#auth_logout').text(L('option_logout'));
 
         $('#signin_username').attr('placeholder', L('signin_username'));
@@ -50,16 +51,20 @@ $(document).ready(function() {
         $('.forget-password a').text(L('signin_forgetpwd'));
         $('#signin_submit').text(L('signin_submit'));
 
-        $('.data-zone .data-zone-us').text(L('web_signin_data_zone_global'));
-        $('.data-zone .data-zone-cn').text(L('web_signin_data_zone_mainland'));
+        $('.data-zone .data-zone-us span').text(L('web_signin_data_zone_global'));
+        $('.data-zone .data-zone-cn span').text(L('web_signin_data_zone_mainland'));
         //change data zone
-        $('.data-zone span').bind('click',function(){
+        $('.data-zone div').bind('click',function(){
             if($(this).hasClass('data-zone-us')){
                 $(this).hide();
+                $('#register_cn').hide();
+                $('#register_jp').show();
                 $('.data-zone .data-zone-cn').show();
                 setAPI('jp');
             }else{
                 $(this).hide();
+                $('#register_jp').hide();
+                $('#register_cn').show();
                 $('.data-zone .data-zone-us').show();
                 setAPI('cn');
             }

@@ -38,12 +38,20 @@ a:hover {
 }
 .data-zone{
     margin: 25px;
+    color: #888;
 }
 .data-zone span{
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAb0lEQVR42t2TPQrAIAxGvf8pvEOP4hJEER0yuXiCz6ZD6BqzlAoPyZBHyE8A4OKjghjjdYPwelYB1lqQ3yNQyZFgzqlIbBaUUtBawxgDzPxITAIiQs4ZtVb03s0CSVQ02ViBcN7ElJJhjI5F+sExbZU942clnlWmAAAAAElFTkSuQmCC) no-repeat;
-    padding-left: 20px;
     text-decoration: underline;
     cursor: pointer;
+}
+.data-zone i{
+    margin-right: 10px;
+    display:inline-block;width:0;height:0;overflow:hidden;line-height:0;font-size:0;
+    vertical-align:middle;
+    border-left:5px solid #c5c8c9;
+    border-right:0 none;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
 }
 .data-zone span:hover{
     text-decoration: none;

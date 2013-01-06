@@ -95,6 +95,12 @@
     "option_sign_up_a_new_account_in_Doitim": {
         "message": "注册新账号"
     },
+    "option_sign_up_data_zone_jp": {
+        "message": "(美国和日本服务器)"
+    },
+    "option_sign_up_data_zone_cn": {
+        "message": "(中国大陆服务器)"
+    },
     "option_login_in_Doitim": {
         "message": "前往Doit.im登录"
     },

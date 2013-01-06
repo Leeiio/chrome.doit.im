@@ -19,14 +19,15 @@ $(document).ready(function() {
     $('.type-earlier-finish .task-type-text').text(L('Earlier'));
     $('#msg_box_button_ok').text(L('OK'));
     $('#msg_box_button_cancel').text(L('Cancel'));
-    $('#register').text(L('option_sign_up_a_new_account_in_Doitim'));
+    $('#register_jp').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_jp'));
+    $('#register_cn').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_cn'));
     $('#signin_username').attr('placeholder', L('signin_username'));
     $('#signin_password').attr('placeholder', L('signin_password'));
     $('.forget-password a').text(L('signin_forgetpwd'));
     $('#signin_submit').text(L('signin_submit'));
 
-    $('.data-zone .data-zone-us').text(L('web_signin_data_zone_global'));
-    $('.data-zone .data-zone-cn').text(L('web_signin_data_zone_mainland'));
+    $('.data-zone .data-zone-us span').text(L('web_signin_data_zone_global'));
+    $('.data-zone .data-zone-cn span').text(L('web_signin_data_zone_mainland'));
 
     $('#task_add_help span').popover({
         title:L('smart_add_shortcuts'),
@@ -40,13 +41,17 @@ $(document).ready(function() {
     },678);
 
     //change data zone
-    $('.data-zone span').bind('click',function(){
+    $('.data-zone div').bind('click',function(){
         if($(this).hasClass('data-zone-us')){
             $(this).hide();
+            $('#register_cn').hide();
+            $('#register_jp').show();
             $('.data-zone .data-zone-cn').show();
             setAPI('jp');
         }else{
             $(this).hide();
+            $('#register_jp').hide();
+            $('#register_cn').show();
             $('.data-zone .data-zone-us').show();
             setAPI('cn');
         }

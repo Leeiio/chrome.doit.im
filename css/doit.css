@@ -122,11 +122,12 @@ body{
     height: 20px;
 }
 #task_add_button_wrap{
-    margin-left: 5px;
+    margin-left: 10px;
 }
 #task_add_button_wrap button{
-    height: 27px;
-    width: 82px;
+    max-width: 82px;
+    max-height: 30px;
+    white-space: nowrap;
 }
 #message_wrap{
     height: 20px;

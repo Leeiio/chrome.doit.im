@@ -358,9 +358,9 @@ only screen and (min-device-pixel-ratio: 1.5) {
     width: 300px;
     margin:40px auto 0 auto;
     text-align: center;
-    /*position: fixed;*/
-    /*top: 40%;*/
-    /*margin-top:50px;*/
+}
+#please_login .logo a{
+    outline: none;
 }
 #please_login .forget-password{
     text-align:right;

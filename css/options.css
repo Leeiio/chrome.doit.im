@@ -1,5 +1,5 @@
 #wrap{
-    width:300px;
+    width:400px;
     margin:0 auto;
     text-align:center;
     }
@@ -27,13 +27,38 @@ em{
 
 
 #account_info{
-    width:300px;
+    width:400px;
     margin:0 auto;
+}
+.account-list{
+    margin: 0;
 }
 .account-list li{
     line-height:2em;
+    height: 2em;
+    overflow: hidden;
 }
 .account-list .attr{
-    font-weight:bold;
-    margin-right:10px;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 190px;
+    text-align: right;
+    float: left;
+    display: inline-block;
+}
+.account-list .value{
+    float: left;
+    width: 200px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.pro-icon{
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    text-indent: -9999em;
+    margin-left: 10px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAD7klEQVR42u2W3U/TZxTH+R924fViMC7ELYtLTBbMIMGYuKFuBuVtdk4oltdRXqYUECWkg4EWFILdlJeCL6WwTL0wswiUltcNGaBQYAM02Y0LlNJSr/z6/T0P9Bfjfblpk2/ye845zzmfc56n7S8CwI4qDBAGCAMonw+oaComxIoWtWNjY48su/KGA/MGhFKsOUSAAxEKzab7AnZAb5TaEmD2R+yEggD+50XYCakAMwXwPyPV3EV0XT2MMs2ud/T4ZjyJy2FvPfmer6suBmK/yFHEuFIM3kmBqfDjYIy5dD/GbKdkjCoVwPd3Pg2lCPzTBNu1RLHp5XgdXr/ogLk8WqwX+g3o7dCJ5xl7ufDZ6r8W6zFrAnxThezqEuxtGmF7aE5FYOkWAsu3YDEeEjaH5ThYa1sqwMbTXPhmyhjcBtv1VBG8MlTBIvfQ25kt1tOPy9B7O08+PyrA65XbcPUUbyX+Br5pA1ZGqsS6vnA//HM18Lt/JkQL1hfbYcyMhFH3If4fzQLrCakAf2WxgxIE/m3hBJJEkuX+fLwYq0V90QFu3gPPbHMQZup+OjzPG2GpOSYS/+fMhX/2J7i6C4X/QeNRbEwoRX6gvZqNWGGpjhe+yZ6TYD1FKoB3TMfg8wgs3iRAyjtnbDEewbKjBJsLZh5BruoTnX6GpT499/L+uBsIKP1/mOPBnFQmfJMGNtbOvMlyWi3SR6kA6yNaeCeKWeQXBm4fgZEjbORoK1mghM9NBMjbOo7LcHbpZUfdSfD+qaf/Opw2eSS/18dByRnMy8Ys1cdkvC0x6FMBhs4ySQE252/A1iCPYMmeI2zekUx4xznKuWuwW7K37sAFdtUBU8EnMOXvxSunjhfwCo+sUfHT9hGYk0rjqIux9qyZR7WXd2A3Xjm0wkepAJ7BM/CO5rNIM7pM8qu2+DAZtCsibQ4LNPCG62QXv2k58l8xeFcC3TN+zilVsNMOflW1cgp1B+FxaWm/xGP8StgGWhPgcZ7dzqsCrA2cxvqwcpGaCJAgAe6fAu1CniFe0hkTATKE76k1CRtTNSzYySl8KmwjlhM8rlr451vg6EzjFKLU34GyLzBqTWeeTObTBPOqAH2pJDuHjUmjUojTKGbAd6BdEWnZycRl6Rs3cJ3OqeiVNdUg4j2ONI41jx1XSfv01S2ZuLeSvhys9WtkTikVYLU3Gat9dA6eI0g2A7/H6pMU0C715FusOTKkbyCNayWBhussjjmXtnQRQynPwuYZ1ku5csQe+mQuVfLPKC4u7ss56/HhVXsiQimlpvg7drvdF6Oiog6H+oUkMjLykHghAVBH3QipZM19BAi/lIYBwgARbwGnb/ar8qN/SgAAAABJRU5ErkJggg==) no-repeat center center;
 }

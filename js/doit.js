@@ -478,6 +478,19 @@ function msg(obj){
         }
     });
 }
+
+//判断用户是否是pro
+function checkPro(settings){
+    var pro = settings.account_type;
+    var pay_end_at = settings.pay_end_at ? new Date(settings.pay_end_at.replace(/-/g,'/')).getTime() : 0;
+    var today = new Date().getTime();
+    if(pro === 'pro' && pay_end_at >= today){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 //检查项目是否激活
 function checkProjectActive(project){
     if(!project) return false;

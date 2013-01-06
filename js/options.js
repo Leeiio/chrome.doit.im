@@ -13,6 +13,7 @@ $(document).ready(function() {
 	    $('#auth_logout').hide();
 	    $('#account_info').hide();
 	}else{
+        $('.register-new').hide();
 		$('#option_please_login').hide();
 	    $('#auth_logout').unbind('click').bind('click', function(){
 	        logout();
@@ -28,10 +29,17 @@ $(document).ready(function() {
         var username = data.username;
         var created = new Date(data.created).toString('yyyy-MM-dd');
         var $account_info = $('#account_info');
-        $account_info.find('.account .value').html(account);
-        $account_info.find('.email .value').html(username);
-        $account_info.find('.registed .value').html(created);
+        $account_info.find('.account .value').html(account).attr('title',account);
+        $account_info.find('.email .value').html(username).attr('title',username);
+        $account_info.find('.registed .value').html(created).attr('title',created);
         $account_info.show();
+        if(checkPro(data)){
+            var email_to_task_address = data.email_to_task_address;
+            var pro_expire = data.pay_end_at;
+            $account_info.find('.mailbox .value').html(email_to_task_address).attr('title',email_to_task_address);
+            $account_info.find('.pro-expire .value').html(pro_expire).attr('title',pro_expire);
+            $('.pro-icon, .mailbox, .pro-expire').show();
+        }
 	}
 	$('#logout').unbind('click').bind('click', function (){
 		logout(function(){

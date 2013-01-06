@@ -28,9 +28,11 @@ $(document).ready(function() {
     $('.data-zone .data-zone-us').text(L('web_signin_data_zone_global'));
     $('.data-zone .data-zone-cn').text(L('web_signin_data_zone_mainland'));
 
-    $('#task_add_help a').popover({
+    $('#task_add_help span').popover({
         title:L('smart_add_shortcuts'),
-        content:'# ' + L('Project') + '<br />^ ' + L('Date')
+        html:true,
+        trigger:"hover",
+        content:'# ' + L('Project') + ' ^ ' + L('Date')
     });
 
     setTimeout(function(){

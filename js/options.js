@@ -4,6 +4,7 @@ function logout(callback){
     localStorage.removeItem('all_tasks');
     localStorage.removeItem('projects');
     localStorage.removeItem('data_zone');
+    chrome.browserAction.setBadgeText({text:''});
     callback && callback();
 }
 $(document).ready(function() {

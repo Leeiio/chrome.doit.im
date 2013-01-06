@@ -40,6 +40,15 @@ $(document).ready(function() {
         $('#signin_username').trigger('focus');
     },678);
 
+    //show data zone chooser
+    var ls_datazone = localStorage.getItem('data_zone');
+    if(ls_datazone && ls_datazone === 'cn'){
+        $('#register_jp').hide();
+        $('#register_cn').show();
+        $('.data-zone .data-zone-us').show();
+        $('.data-zone .data-zone-cn').hide();
+    }
+
     //change data zone
     $('.data-zone div').bind('click',function(){
         if($(this).hasClass('data-zone-us')){
@@ -76,12 +85,14 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             complete: function(resp) {
                 var status = resp.status;
-                var data = JSON.parse(resp.responseText);
-                localStorage.setItem('account',JSON.stringify(data));
                 if(status == 401) {
                     $('.signin-form input').parent().addClass('error');
-                    $('#signin_error').html('incorrect Username/Email or Password').show();
+                    $('.submit-loading').hide();
+                    $('#signin_error').html(L('signin_error_401')).show();
+                    return false;
                 }else if(status == 200){
+                    var data = JSON.parse(resp.responseText);
+                    localStorage.setItem('account',JSON.stringify(data));
                     localStorage.setItem('user_auth',auth);
                     location.reload();
                 }

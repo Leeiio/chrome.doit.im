@@ -169,5 +169,8 @@
     },
     "signin_submit": {
         "message": "提交"
+    },
+    "signin_error_401": {
+        "message": "用戶名/郵箱或密碼錯誤"
     }
 }

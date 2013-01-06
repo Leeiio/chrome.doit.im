@@ -56,3 +56,7 @@ a:hover {
 .data-zone span:hover{
     text-decoration: none;
 }
+#signin_error{
+    width: 220px;
+    margin: 0 auto 20px auto;
+}

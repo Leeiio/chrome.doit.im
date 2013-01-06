@@ -169,5 +169,8 @@
     },
     "signin_submit": {
         "message": "Submit"
+    },
+    "signin_error_401": {
+        "message": "Incorrect Username/Email or Password"
     }
 }

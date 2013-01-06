@@ -8,6 +8,15 @@ function logout(callback){
     callback && callback();
 }
 $(document).ready(function() {
+    //show data zone chooser
+    var ls_datazone = localStorage.getItem('data_zone');
+    if(ls_datazone && ls_datazone === 'cn'){
+        $('#register_jp').hide();
+        $('#register_cn').show();
+        $('.data-zone .data-zone-us').show();
+        $('.data-zone .data-zone-cn').hide();
+    }
+
 	if(!localStorage.getItem('user_auth')){
 		$('#option_please_login').show();
 	    $('#auth_logout').hide();
@@ -96,23 +105,26 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 complete: function(resp) {
                     var status = resp.status;
-                    var data = JSON.parse(resp.responseText);
-                    localStorage.setItem('account',JSON.stringify(data));
-                    var account = data.account;
-                    var username = data.username;
-                    var created = new Date(data.created).toString('yyyy-MM-dd');
-                    var $account_info = $('#account_info');
-                    $account_info.find('.account .value').html(account);
-                    $account_info.find('.email .value').html(username);
-                    $account_info.find('.registed .value').html(created);
-                    $account_info.show();
                     if(status == 401) {
                         $('.signin-form input').parent().addClass('error');
-                        $('#signin_error').html('incorrect Username/Email or Password').show();
+                        $('.submit-loading').hide();
+                        $('#signin_error').html(L('signin_error_401')).show();
+                        return false;
                     }else if(status == 200){
+                        var data = JSON.parse(resp.responseText);
+                        localStorage.setItem('account',JSON.stringify(data));
                         localStorage.setItem('user_auth',auth);
                         location.reload();
                     }
+//
+//                    var account = data.account;
+//                    var username = data.username;
+//                    var created = new Date(data.created).toString('yyyy-MM-dd');
+//                    var $account_info = $('#account_info');
+//                    $account_info.find('.account .value').html(account);
+//                    $account_info.find('.email .value').html(username);
+//                    $account_info.find('.registed .value').html(created);
+//                    $account_info.show();
                 }
             });
             return false;

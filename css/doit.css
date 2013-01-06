@@ -121,7 +121,7 @@ body{
 
 #task_add_input_wrap input{
     line-height: 20px;
-    width: 286px;
+    width: 280px;
     height: 20px;
 }
 #task_add_button_wrap{
@@ -147,6 +147,7 @@ body{
 }
 #tasks_list{
     height: 450px;
+    overflow-x: hidden;
     overflow-y: auto;
     padding: 0 5px;
 }
@@ -182,8 +183,8 @@ body{
         /* this is the acutal scrooll bar, set the colours here to match your site */
         /* I have used grey's (#464646 & #383838 & #cccccc) */
         background: #999;
-                -webkit-border-radius: 5px;
-                -webkit-background-clip: padding-box;
+        -webkit-border-radius: 5px;
+        -webkit-background-clip: padding-box;
 }
 .left{
     float: left;

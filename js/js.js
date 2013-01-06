@@ -230,8 +230,7 @@ $(document).ready(function() {
                 return false;
             });
             makeTab();
-            $('#tasks_list_tab').disableSelection();
-            $('.task-type-wrap').disableSelection().click(function(){
+            $('.task-type-wrap').click(function(){
                 var $this = $(this);
                 if($this.hasClass('type-open')){
                     $this.addClass('type-close').removeClass('type-open');

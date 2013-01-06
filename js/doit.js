@@ -450,7 +450,6 @@ function msg(obj){
     var $msg = $('#msg_box_wrap');
     $msg.find('#msg_box_title_text').text(obj.title).end().find('#msg_box_content_text').text(obj.content);
     $msg.show()
-    $msg.find('#msg_box_title').disableSelection();
     $msg.find('#msg_box_button_close').unbind('click').bind('click', function() {
         $msg.hide();
         return false;

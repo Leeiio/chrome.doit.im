@@ -76,7 +76,7 @@ body{
     color: #888;
     overflow: hidden;
     min-width:250px;
-    max-width: 500px;
+    max-width: 430px;
     min-height:400px;
     max-height:600px;
 }
@@ -121,7 +121,7 @@ body{
 
 #task_add_input_wrap input{
     line-height: 20px;
-    width: 296px;
+    width: 286px;
     height: 20px;
 }
 #task_add_button_wrap{
@@ -154,6 +154,8 @@ body{
     font-size:14px;
     overflow: hidden;
     font-weight: bold;
+    -webkit-user-select: none;
+    user-select: none;
 }
 /*滚动条*/
 ::-webkit-scrollbar {
@@ -337,6 +339,8 @@ only screen and (min-device-pixel-ratio: 1.5) {
 #tasks_list_tab{
     padding-left: 20px;
     border-bottom: 1px solid #c7c7c7;
+    -webkit-user-select: none;
+    user-select: none;
 }
 #tasks_list_tab_wrap div{
     position: relative;
@@ -378,17 +382,21 @@ only screen and (min-device-pixel-ratio: 1.5) {
     display: none;
 }
 #msg_box{
+    -webkit-user-select: none;
+    user-select: none;
     position: absolute;
     top:20%;
     left: 50%;
     margin-left: -125px;
     width: 250px;
-    border: 3px solid #454545;
-    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
     padding: 0;
     opacity: 1;
     z-index: 4;
     background:#ebebeb;
+    -webkit-box-shadow:0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 #msg_box_title{
     position: relative;
@@ -397,7 +405,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
     background-color: #ebebeb;
     padding: 5px 0;
     color: #444;
-    border-radius: 10px 10px 0 0;
+    border-radius: 6px 6px 0 0;
     border-bottom: 1px solid #dcdcdc;
 }
 #msg_box_button_close{
@@ -427,7 +435,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
 #msg_box_button_list{
     background-color: #fff;
     padding-bottom:10px;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 6px 6px;
 }
 
 #shadow_div{

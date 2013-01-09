@@ -4,6 +4,11 @@
     /*background-color: #646464;*/
     width:11px;
     height:11px;
-    margin-right: 5px;
-    margin-top: 1px;
+    margin:1px 5px 0 0;
+}
+.permalink-tweet .doitim-action i{
+    -webkit-mask-image:url(chrome-extension://__MSG_@@extension_id__/imgs/icon-mask-16.png);
+    width:16px;
+    height: 16px;
+    margin:-1px 5px 0 0;
 }

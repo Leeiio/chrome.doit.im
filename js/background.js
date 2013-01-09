@@ -12,6 +12,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
         };
         $.ajaxSetup({
             dataType: 'json',
+            cache:false,
             beforeSend: function(req){
                 req.setRequestHeader('Authorization', addBasicAuth())
             },

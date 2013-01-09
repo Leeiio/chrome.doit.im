@@ -48,5 +48,5 @@
         "128":"imgs/icon128.png"
     },
     "default_locale":"en",
-    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon11.png","js/sites/gmail_message.js","js/sites/qmail_message.js","js/libs/jquery.min.js" ]
+    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon-mask-16.png","imgs/icon11.png","js/sites/gmail_message.js","js/sites/qmail_message.js","js/libs/jquery.min.js" ]
 }

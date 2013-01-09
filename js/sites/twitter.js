@@ -34,7 +34,7 @@ $(function () {
         var $tweet = $(action).parents('div.tweet'),
             tweetURL = twitterBaseURL + $tweet.find('.js-permalink').attr('href'),
             twitter_username = $tweet.attr('data-screen-name'),
-            tweetTEXT = $.trim($tweet.find('p.js-tweet-text').text());
+            tweetTEXT = $.trim($tweet.find('p.js-tweet-text').html().replace(/<[^>].*?>/g,''));
 
         var title = twitter_username + ": " + tweetTEXT;
 

@@ -1,7 +1,7 @@
 .doitim-action i{
     /*background:url(chrome-extension://__MSG_@@extension_id__/imgs/icon11.png) no-repeat;*/
     -webkit-mask-image:url(chrome-extension://__MSG_@@extension_id__/imgs/icon11.png);
-    background-color: #646464;
+    /*background-color: #646464;*/
     width:11px;
     height:11px;
     margin-right: 5px;

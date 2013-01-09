@@ -19,7 +19,9 @@ $(function () {
     }
 
     function addToTwitterList(actionList) {
-        $(actionList).append('<li class="action-addto-doitim"><a href="#" class="doitim-action new" data-tweet-id="" title="'+L("sites_button_add_to")+'"><span><i></i><b>Doit.im</b></span></a></li>');
+        var $node = $('<li class="action-addto-doitim"><a href="#" class="doitim-action new" data-tweet-id="" title="'+L("sites_button_add_to")+'"><span><i></i><b>Doit.im</b></span></a></li>');
+        $(actionList).append($node);
+        $node.find('i').css('background-color', $node.find('b').css('color'));
     }
 
     function addToTwitter(tweets) {

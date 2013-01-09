@@ -79,6 +79,7 @@ $(document).ready(function() {
         $.ajax({
             url: PROFILE_URL,
             dataType: 'json',
+            cache: false,
             beforeSend: function(req){
                 req.setRequestHeader('Authorization', 'Basic ' + auth)
             },

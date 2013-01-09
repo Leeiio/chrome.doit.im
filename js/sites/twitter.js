@@ -65,5 +65,12 @@ $(function () {
         });
     }
 
-    initialize();
+    chrome.extension.sendMessage({
+        action: "localStorage",
+        key: "twitter"
+    }, function (response) {
+        if (response.value) {
+            initialize();
+        }
+    });
 });

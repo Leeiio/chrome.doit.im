@@ -4,14 +4,16 @@
 //    });
     var L = chrome.i18n.getMessage;
     var $d = $(document);
-    setInterval(function(){
+
+    function addToGmail(){
         //button wrapper
         var $b_wrapper = $('.iH[gh=mtb]');
         if($b_wrapper.length && !$('#doitim_button').length){
             var $button = $('<div class="G-Ni J-J5-Ji"><div id="doitim_button" data-tooltip="'+L("sites_button_add_to")+'" class="T-I J-J5-Ji ar7 nf T-I-ax7 L3" role="button" tabindex="0" style="-webkit-user-select: none;border-color: rgba(0, 0, 0, 0.15) !important;"><img style="height: 13px;width: 13px;vertical-align: -2px;margin-right: 5px" src="' + chrome.extension.getURL("imgs/icon16.png") + '"/ ><span class="Ykrj7b">'+L("sites_button_add_to")+'</span><div class="G-asx T-I-J3 J-J5-Ji">&nbsp;</div></div></div>');
             $b_wrapper.children('div').append($button);
         }
-    }, 300);
+    }
+
     $d.on("hover", "#doitim_button", function () {
         $(this).toggleClass("T-I-JW");
     });
@@ -74,6 +76,26 @@
         $popupmenu.find('.doitim-input-notes').val(mail_content);
         $popupmenu.find('.doitim-input-tags').val('Gmail');
     });
+
+    function initialize() {
+        setInterval(function () {
+            addToGmail();
+        }, 1000);
+        $(document).on('click','.addto-doitim',function(){
+            postToDoit();
+        });
+    }
+
+    chrome.extension.sendMessage({
+        action: "localStorage",
+        key: "gmail"
+    }, function (response) {
+        if (response.value) {
+            initialize();
+        }
+    });
+
+
     //list
 //    $d.on('click', '.nf', function(){
 //        setTimeout(function(){

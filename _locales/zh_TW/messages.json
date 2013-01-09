@@ -172,5 +172,32 @@
     },
     "signin_error_401": {
         "message": "用戶名/郵箱或密碼錯誤"
+    },
+    "options": {
+        "message": "選項"
+    },
+    "option_username": {
+        "message": "用戶名："
+    },
+    "option_email": {
+        "message": "賬戶郵箱："
+    },
+    "option_registered": {
+        "message": "註冊時間："
+    },
+    "option_task_mailbox": {
+        "message": "任務郵箱："
+    },
+    "option_expires_on": {
+        "message": "Pro賬戶到期時間："
+    },
+    "option_quick_add": {
+        "message": "快速添加服務："
+    },
+    "option_sina": {
+        "message": "新浪微博"
+    },
+    "option_quickadd_desc": {
+        "message": "添加社交網絡上的信息到Doit.im的收集箱。"
     }
 }

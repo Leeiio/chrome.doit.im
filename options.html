@@ -20,37 +20,74 @@
             </div>
         </div>
         <div id="body">
-            <div class="register-new">
-                <a id="register_jp" target="_blank" href="https://i.doit.im/register">前往&nbsp;Doit.im&nbsp;注册一个新帐号</a>
-                <a id="register_cn" style="display: none" target="_blank" href="https://i.doitim.com/register">前往&nbsp;Doit.im&nbsp;注册一个新帐号</a>
+            <div class="not-signin">
+                <div class="register-new">
+                    <a id="register_jp" target="_blank" href="https://i.doit.im/register">前往&nbsp;Doit.im&nbsp;注册一个新帐号</a>
+                    <a id="register_cn" style="display: none" target="_blank" href="https://i.doitim.com/register">前往&nbsp;Doit.im&nbsp;注册一个新帐号</a>
+                </div>
+                <div id="option_please_login"  class="signin-form">
+                    <div id="signin_error" class="alert alert-error" style="display:none"></div>
+                    <form method="post" action="" id="signin_form">
+                        <p class="control-group"><input id="signin_username" autofocus="autofocus" type="text" placeholder="Username" /></p>
+                        <p class="control-group"><input id="signin_password" type="password" placeholder="Password" /></p>
+                        <p class="forget-password"><a target="_blank" href="https://i.doit.im/forget_password" message="signin_forgetpwd"></a></p>
+                        <div class="submit"><div style="display:none" class="submit-loading"></div><button id="signin_submit" class="btn btn-primary" type="submit" message="signin_submit"></button></div>
+                    </form>
+                    <div class="data-zone">
+                        <div class="data-zone-us" style="display: none"><i></i><span message="web_signin_data_zone_global"></span></div>
+                        <div class="data-zone-cn"><i></i><span message="web_signin_data_zone_mainland"></span></div>
+                    </div>
+                </div>
             </div>
-            <div id="account_info" style="display:none">
-                <span class="pro-icon" title="Pro" style="display: none">Pro</span>
-                <ul class="account-list">
-                    <li class="account"><span class="attr">Username:</span><span class="value"></span></li>
-                    <li class="email"><span class="attr">Email:</span><span class="value"></span></li>
-                    <li class="registed"><span class="attr">Registered:</span><span class="value"></span></li>
-                    <li class="mailbox" style="display: none"><span class="attr">Task mailbox:</span><span class="value"></span></li>
-                    <li class="pro-expire" style="display: none"><span class="attr">Pro Account Expires on:</span><span class="value"></span></li>
-                </ul>
-            </div>
-            <div style="margin-top: 30px">
-                <a id="auth_logout" href="#">已登录，退出</a>
-            </div>
-            <div id="option_please_login"  class="signin-form">
-                <div id="signin_error" class="alert alert-error" style="display:none"></div>
-                <form method="post" action="" id="signin_form">
-                    <p class="control-group"><input id="signin_username" autofocus="autofocus" type="text" placeholder="Username" /></p>
-                    <p class="control-group"><input id="signin_password" type="password" placeholder="Password" /></p>
-                    <p class="forget-password"><a target="_blank" href="https://i.doit.im/forget_password">Forgot password?</a></p>
-                    <div class="submit"><div style="display:none" class="submit-loading"></div><button id="signin_submit" class="btn btn-primary" type="submit">Submit</button></div>
-                </form>
-                <div class="data-zone">
-                    <div class="data-zone-us" style="display: none"><i></i><span>我是美国和日本服务器用户</span></div>
-                    <div class="data-zone-cn"><i></i><span>我是中国大陆服务器用户</span></div>
+            <div class="signed-in">
+                <h2><span message="options">OPTIONS</span><span class="pro-icon" title="Pro" style="display: none">Pro</span></h2>
+                <div id="account_info" class="section">
+                    <ul class="account-list">
+                        <li class="account"><span class="attr" message="option_username">Username</span><span class="value"></span></li>
+                        <li class="email"><span class="attr" message="option_email">Email</span><span class="value"></span></li>
+                        <li class="registed"><span class="attr" message="option_registered">Registered</span><span class="value"></span></li>
+                        <li class="mailbox" style="display: none"><span class="attr" message="option_task_mailbox">Task mailbox</span><span class="value"></span></li>
+                        <li class="pro-expire" style="display: none"><span class="attr" message="option_expires_on">Pro Account Expires on</span><span class="value"></span></li>
+                    </ul>
+                </div>
+                <div id="quick_add" class="section">
+                    <dl>
+                        <dt message="option_quick_add">Quick add services:</dt>
+                        <dd>
+                            <input id="checkbox_twitter" value="twitter" type="checkbox" class="checkbox">
+                            <label for="checkbox_twitter">Twitter</label>
+                        </dd>
+                        <dd>
+                            <input id="checkbox_gmail" value="gmail" type="checkbox" class="checkbox">
+                            <label for="checkbox_gmail">Gmail</label>
+                        </dd>
+                        <dd>
+                            <input id="checkbox_outlook" value="outlook" type="checkbox" class="checkbox">
+                            <label for="checkbox_outlook">Outlook.com</label>
+                        </dd>
+                        <dd>
+                            <input id="checkbox_weibo" value="weibo" type="checkbox" class="checkbox">
+                            <label for="checkbox_weibo" message="option_sina">Sina weibo</label>
+                        </dd>
+                        <dd>
+                            <input id="checkbox_pinboard" value="pinboard" type="checkbox" class="checkbox">
+                            <label for="checkbox_pinboard">Pinboard</label>
+                        </dd>
+                        <dd class="desc" message="option_quickadd_desc">
+                            Add infomation from these services to the Inbox of Doit.im.
+                        </dd>
+                    </dl>
+                </div>
+                <div style="margin-top: 30px">
+                    <a id="auth_logout" href="#" message="option_logout">Logout</a>
                 </div>
             </div>
         </div>
+        <footer>
+            <p class="copy"><span>©2009-2012 Snoworange Inc.</span>
+            <p class="gtd">GTD® and Getting Things Done® are registered trademarks of the David Allen Company.<br>
+                Snoworange Inc. is not affiliated with or endorsed by the David Allen Company.</p>
+        </footer>
     </div>
 </body>
 </html>

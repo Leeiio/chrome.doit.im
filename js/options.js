@@ -1,13 +1,22 @@
+var L = chrome.i18n.getMessage;
+
 function logout(callback){
     localStorage.removeItem('user_auth');
     localStorage.removeItem('account');
     localStorage.removeItem('all_tasks');
     localStorage.removeItem('projects');
     localStorage.removeItem('data_zone');
+    localStorage.removeItem('options');
     chrome.browserAction.setBadgeText({text:''});
     callback && callback();
 }
 $(document).ready(function() {
+    //set lang
+    $('[message]').each(function(){
+        var lang = this.getAttribute('message');
+        lang = L(lang);
+        $(this).html(lang);
+    });
     //show data zone chooser
     var ls_datazone = localStorage.getItem('data_zone');
     if(ls_datazone && ls_datazone === 'cn'){
@@ -17,22 +26,12 @@ $(document).ready(function() {
         $('.data-zone .data-zone-cn').hide();
     }
 
-	if(!localStorage.getItem('user_auth')){
-		$('#option_please_login').show();
-	    $('#auth_logout').hide();
-	    $('#account_info').hide();
+	if(!localStorage.getItem('user_auth') && !localStorage.getItem('account')){
+        $('.not-signin').show();
+        $('.signed-in').hide();
 	}else{
-        $('.register-new').hide();
-		$('#option_please_login').hide();
-	    $('#auth_logout').unbind('click').bind('click', function(){
-	        logout();
-	        location.reload();
-	    }).show();
-	}
-	if(!localStorage.getItem('account')){
-		var $account_info = $('#account_info');
-		$account_info.hide();
-	}else{
+        $('.not-signin').hide();
+        $('.signed-in').show();
 		var data = JSON.parse(localStorage.getItem('account'));
 		var account = data.account;
         var username = data.username;
@@ -49,27 +48,22 @@ $(document).ready(function() {
             $account_info.find('.pro-expire .value').html(pro_expire).attr('title',pro_expire);
             $('.pro-icon, .mailbox, .pro-expire').show();
         }
+        setSocial();
 	}
-	$('#logout').unbind('click').bind('click', function (){
+	$('#auth_logout').unbind('click').bind('click', function (){
 		logout(function(){
 			location.reload();
 		});
 	});
 
     //for options.html
-    var L = chrome.i18n.getMessage;
     $(document).ready(function() {
         $('#register_jp').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_jp'));
         $('#register_cn').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_cn'));
-        $('#auth_logout').text(L('option_logout'));
 
         $('#signin_username').attr('placeholder', L('signin_username'));
         $('#signin_password').attr('placeholder', L('signin_password'));
-        $('.forget-password a').text(L('signin_forgetpwd'));
-        $('#signin_submit').text(L('signin_submit'));
 
-        $('.data-zone .data-zone-us span').text(L('web_signin_data_zone_global'));
-        $('.data-zone .data-zone-cn span').text(L('web_signin_data_zone_mainland'));
         //change data zone
         $('.data-zone div').bind('click',function(){
             if($(this).hasClass('data-zone-us')){
@@ -114,6 +108,7 @@ $(document).ready(function() {
                         var data = JSON.parse(resp.responseText);
                         localStorage.setItem('account',JSON.stringify(data));
                         localStorage.setItem('user_auth',auth);
+                        localStorage.setItem('options','{"social_list":["twitter","gmail","outlook","weibo","pinboard"]}');
                         location.reload();
                     }else if(status == 301){
                         $('.signin-form input').parent().addClass('error');
@@ -139,5 +134,28 @@ $(document).ready(function() {
                 $(this).parent().removeClass('error');
             }
         });
+    });
+    //set social options
+    function setSocial(){
+        var options = JSON.parse(localStorage.getItem('options'));
+        if(options && options.social_list){
+            var social_list = options.social_list;
+            social_list.forEach(function(item){
+                $('#quick_add .checkbox[value="'+item+'"]').attr('checked',true);
+            });
+        }
+    }
+    //social options
+    $('#quick_add').delegate('.checkbox','change',function(){
+        var options = localStorage.getItem('options') || '{}';
+        options = JSON.parse(options);
+        var social_list = [];
+        $('#quick_add .checkbox').each(function(){
+           if($(this).is(':checked')){
+               social_list.push($(this).val());
+           }
+        });
+        options.social_list = social_list;
+        localStorage.setItem('options',JSON.stringify(options));
     });
 });

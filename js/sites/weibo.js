@@ -76,5 +76,12 @@ $(function () {
         });
     }
 
-    initialize();
+    chrome.extension.sendMessage({
+        action: "localStorage",
+        key: "weibo"
+    }, function (response) {
+        if (response.value) {
+            initialize();
+        }
+    });
 });

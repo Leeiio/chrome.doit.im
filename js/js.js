@@ -4,30 +4,16 @@
 $(document).ready(function() {
     //i18n
     var L = chrome.i18n.getMessage;
-    $('#logo h1').text(L('Doitim'));
-    $('#task_add_button_wrap button').text(L('Add'));
-    $('.message_text').text(L('Processing'));
-    $('.tab-unfinished div').text(L('Uncompleted'));
-    $('.tab-finished div').text(L('Completed'));
-    $('.type-inbox .task-type-text').text(L('Inbox'));
-    $('.type-next .task-type-text').text(L('Next'));
-    $('.type-overdue-today .task-type-text').text(L('Overdue_and_Today'));
-    $('.type-scheduled .task-type-text').text(L('Scheduled'));
-    $('.type-someday .task-type-text').text(L('Someday'));
-    $('.type-today-finish .task-type-text').text(L('Today'));
-    $('.type-yesterday-finish .task-type-text').text(L('Yesterday'));
-    $('.type-earlier-finish .task-type-text').text(L('Earlier'));
-    $('#msg_box_button_ok').text(L('OK'));
-    $('#msg_box_button_cancel').text(L('Cancel'));
+    //set lang
+    $('[message]').each(function(){
+        var lang = this.getAttribute('message');
+        lang = L(lang);
+        $(this).html(lang);
+    });
     $('#register_jp').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_jp'));
     $('#register_cn').text(L('option_sign_up_a_new_account_in_Doitim')+L('option_sign_up_data_zone_cn'));
     $('#signin_username').attr('placeholder', L('signin_username'));
     $('#signin_password').attr('placeholder', L('signin_password'));
-    $('.forget-password a').text(L('signin_forgetpwd'));
-    $('#signin_submit').text(L('signin_submit'));
-
-    $('.data-zone .data-zone-us span').text(L('web_signin_data_zone_global'));
-    $('.data-zone .data-zone-cn span').text(L('web_signin_data_zone_mainland'));
 
     $('#task_add_help span').popover({
         title:L('smart_add_shortcuts'),
@@ -94,6 +80,7 @@ $(document).ready(function() {
                     var data = JSON.parse(resp.responseText);
                     localStorage.setItem('account',JSON.stringify(data));
                     localStorage.setItem('user_auth',auth);
+                    localStorage.setItem('options','{"social_list":["twitter","gmail","outlook","weibo","pinboard"]}');
                     location.reload();
                 }else if(status == 301){
                     $('.signin-form input').parent().addClass('error');

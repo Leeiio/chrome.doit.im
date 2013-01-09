@@ -1,7 +1,26 @@
 var L = chrome.i18n.getMessage;
-chrome.extension.onMessage.addListener(function(a,b,c){
+function getSetting(key){
+    var options = JSON.parse(localStorage.getItem('options'));
+    if(options && options.social_list){
+        var social_list = options.social_list;
+        for(var i in social_list){
+            var item = social_list[i];
+            if(item === key){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
+    if (request.action === "localStorage") {
+        sendResponse({
+            "value": getSetting(request.key)
+        });
+        return false;
+    }
     if(!localStorage.getItem('user_auth')){
-        c({
+        sendResponse({
             status:'error',
             message:L("sites_signin_first",chrome.extension.getURL("options.html"))
         });
@@ -20,17 +39,17 @@ chrome.extension.onMessage.addListener(function(a,b,c){
         });
         var task = {
             uuid:makeUUID(),
-            title : a.title,
-            notes : a.content,
+            title : request.title,
+            notes : request.content,
             start_at : null,
             completed : null,
             all_day : true,
             attribute: 'inbox'
         }
-        switch(a.type){
+        switch(request.type){
             case 'gmail':
-                if(a.tags){
-                    task.tags = a.tags;
+                if(request.tags){
+                    task.tags = request.tags;
                 }else{
                     task.tags = ["Gmail"];
                 }
@@ -53,7 +72,7 @@ chrome.extension.onMessage.addListener(function(a,b,c){
             default :
         }
         postTask(task,function(t){
-            c({
+            sendResponse({
                 status:'success',
                 message:L("sites_added_successful")
             });

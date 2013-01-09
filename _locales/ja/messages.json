@@ -172,5 +172,32 @@
     },
     "signin_error_401": {
         "message": "ユーザー名・メールアドレス・パスワードが正しくありません。"
+    },
+    "options": {
+        "message": "OPTIONS"
+    },
+    "option_username": {
+        "message": "Username:"
+    },
+    "option_email": {
+        "message": "Email:"
+    },
+    "option_registered": {
+        "message": "Registered:"
+    },
+    "option_task_mailbox": {
+        "message": "Task mailbox:"
+    },
+    "option_expires_on": {
+        "message": "Pro Account Expires on:"
+    },
+    "option_quick_add": {
+        "message": "Quick add services:"
+    },
+    "option_sina": {
+        "message": "Sina weibo"
+    },
+    "option_quickadd_desc": {
+        "message": "Add infomation from these services to the Inbox of Doit.im."
     }
 }

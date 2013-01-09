@@ -21,22 +21,22 @@
             <ul>
                 <li id="task_add_help"><span>?</span></li>
                 <li id="task_add_input_wrap"><input type="text" name="" /></li>
-                <li id="task_add_button_wrap" class="clearfix"><button class="btn">Add</button></li>
+                <li id="task_add_button_wrap" class="clearfix"><button class="btn" message="Add"></button></li>
             </ul>
         </div>
     </div>
     <div id="message_wrap">
         <div id="message">
-            <p id="message_text">Processing..</p>
+            <p id="message_text" message="Processing"></p>
         </div>
     </div>
     <div id="tasks_list_tab_wrap">
         <ul id="tasks_list_tab" class="clearfix">
             <li class="left tab-unfinished">
-                <div class="highlight">Uncompleted</div>
+                <div class="highlight" message="Uncompleted"></div>
             </li>
             <li class="left tab-finished">
-                <div>Completed</div>
+                <div message="Completed"></div>
             </li>
         </ul>
     </div>
@@ -44,7 +44,7 @@
         <ul id="unfinished_tasks">
             <li>
                 <div class="task-type-wrap type-close type-inbox clearfix">
-                    <div class="task-type"><div class="task-type-text left">Inbox</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Inbox"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                     
@@ -52,7 +52,7 @@
             </li>
             <li>
                 <div class="task-type-wrap type-open type-overdue-today clearfix">
-                    <div class="task-type"><div class="task-type-text left">Overdue and Today</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Overdue_and_Today"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                     
@@ -60,7 +60,7 @@
             </li>
             <li>
                 <div class="task-type-wrap type-close type-next clearfix">
-                    <div class="task-type"><div class="task-type-text left">Next</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Next"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                     
@@ -68,7 +68,7 @@
             </li>
             <li>
                 <div class="task-type-wrap type-close type-scheduled clearfix">
-                    <div class="task-type"><div class="task-type-text left">Scheduled</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Scheduled"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                     
@@ -76,7 +76,7 @@
             </li>
             <li>
                 <div class="task-type-wrap type-close type-someday clearfix">
-                    <div class="task-type"><div class="task-type-text left">Someday</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Someday"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                     
@@ -86,7 +86,7 @@
         <ul id="finished_tasks">
             <li>
                 <div class="task-type-wrap type-open type-today-finish clearfix">
-                    <div class="task-type"><div class="task-type-text left">今日</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Today"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                     
@@ -94,7 +94,7 @@
             </li>
             <li>
                 <div class="task-type-wrap type-open type-yesterday-finish clearfix">
-                    <div class="task-type"><div class="task-type-text left">昨日</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Yesterday"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                      
@@ -102,7 +102,7 @@
             </li>
             <li>
                 <div class="task-type-wrap type-open type-earlier-finish clearfix">
-                    <div class="task-type"><div class="task-type-text left">之前</div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div> 
+                    <div class="task-type"><div class="task-type-text left" message="Earlier"></div><div class="task-type-flag-wrap left"><div class="task-type-flag left"></div></div></div>
                 </div>
                 <div class="task-article">
                      
@@ -121,12 +121,12 @@
     <form method="post" action="" id="signin_form">
         <p class="control-group"><input id="signin_username" autofocus="autofocus" type="text" placeholder="Username" /></p>
         <p class="control-group"><input id="signin_password" type="password" placeholder="Password" /></p>
-        <p class="forget-password"><a target="_blank" href="https://i.doit.im/forget_password">Forgot password?</a></p>
-        <div class="submit"><div style="display:none" class="submit-loading"></div><button id="signin_submit" class="btn btn-primary" type="submit">Submit</button></div>
+        <p class="forget-password"><a target="_blank" href="https://i.doit.im/forget_password" message="signin_forgetpwd"></a></p>
+        <div class="submit"><div style="display:none" class="submit-loading"></div><button id="signin_submit" class="btn btn-primary" type="submit" message="signin_submit"></button></div>
     </form>
     <div class="data-zone">
-        <div class="data-zone-us" style="display: none"><i></i><span>我是美国和日本服务器用户</span></div>
-        <div class="data-zone-cn"><i></i><span>我是中国大陆服务器用户</span></div>
+        <div class="data-zone-us" style="display: none"><i></i><span message="web_signin_data_zone_global"></span></div>
+        <div class="data-zone-cn"><i></i><span message="web_signin_data_zone_mainland"></span></div>
     </div>
 </div>
 <div id="msg_box_wrap">
@@ -139,25 +139,11 @@
             <div id="msg_box_content_text">确定删除？</div>
         </div>
         <div id="msg_box_button_list">
-            <button id="msg_box_button_cancel" class="btn">取消</button>
-            <button id="msg_box_button_ok" class="btn btn-primary">确定</button>
+            <button id="msg_box_button_cancel" class="btn" message="Cancel"></button>
+            <button id="msg_box_button_ok" class="btn btn-primary" message="OK"></button>
         </div> 
     </div>
     <div id="shadow_div"></div>
 </div>
-<script id="tasknode" type="text/html">
-<div dyna-id="{{uuid}}" title="{{title}}" class="task-wrap">
-    <div class="complete-button left">
-        <a href="#"></a>
-    </div>
-    <div class="title-wrap">
-        {{#project_id}}<div class="task-project left">{{{project_name}}}</div>{{/project_id}}
-        <div {{#notes}}title="{{notes}}"{{/notes}} class="task-title clearfix" contenteditable="true">'+{{{title}}}+'</div>
-    </div>
-    <div class="delete-button-wrap">
-        <div class="delete-button" title="Delete it"></div>
-    </div>
-</div>
-</script>
 </body>
 </html>

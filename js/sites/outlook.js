@@ -60,5 +60,12 @@ $(function () {
         });
     }
 
-    initialize();
+    chrome.extension.sendMessage({
+        action: "localStorage",
+        key: "outlook"
+    }, function (response) {
+        if (response.value) {
+            initialize();
+        }
+    });
 });

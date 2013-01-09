@@ -16,6 +16,11 @@ function setAPI(zone){
 }
 setAPI();
 
+//not cache ajax
+$.ajaxSetup ({
+    cache:false
+});
+
 var PROFILE = {};
 var TASKS = [];
 var PROJECTS = [];

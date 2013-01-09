@@ -115,6 +115,11 @@ $(document).ready(function() {
                         localStorage.setItem('account',JSON.stringify(data));
                         localStorage.setItem('user_auth',auth);
                         location.reload();
+                    }else if(status == 301){
+                        $('.signin-form input').parent().addClass('error');
+                        $('.submit-loading').hide();
+                        $('#signin_error').html(L('signin_error_401')).show();
+                        return false;
                     }
 //
 //                    var account = data.account;

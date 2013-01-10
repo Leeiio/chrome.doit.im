@@ -43,18 +43,19 @@ em{
     margin-left: 230px;
     text-align: left;
     line-height: 30px;
-    font-weight: 300;
 }
 #body .section dd.desc{
     color: #888;
     line-height: 20px;
     font-size: 13px;
+    font-weight: 300;
 }
 #body .section dd .checkbox{
     margin: 3px;
 }
 #body .section dd label{
     display: inline-block;
+    font-weight: 300;
 }
 
 .account-list{
@@ -112,11 +113,5 @@ footer p{
     margin: 0;
 }
 footer .copy {
-    border-bottom: 1px solid #d6d6d6;
-}
-footer .gtd {
-    border-top: 1px solid #f9f9f9;
-    color: #a1a6a9;
-    padding-top: 10px;
-    line-height: 20px;
+    font-size: 13px;
 }

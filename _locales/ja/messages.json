@@ -96,10 +96,10 @@
         "message": "登録"
     },
     "option_sign_up_data_zone_jp": {
-        "message": "(US and Japan's Server)"
+        "message": "(米国と日本のサーバー)"
     },
     "option_sign_up_data_zone_cn": {
-        "message": "(Mainland Server)"
+        "message": "(中国のサーバー)"
     },
     "option_login_in_Doitim": {
         "message": "Doit.imへログイン"
@@ -123,25 +123,25 @@
         "message": "このウェブサイトをタスクとしてDoit.imへ保存"
     },
     "sites_posting": {
-        "message": "Adding to Doit.im..."
+        "message": "Doit.imへ追加しています。..."
     },
     "sites_button_add_to": {
-        "message": "Add to Doit.im"
+        "message": "Doit.imへ追加します。"
     },
     "sites_added_successful": {
-        "message": "Added to Inbox successfully."
+        "message": "収集箱へ追加しました。"
     },
     "sites_addform_title": {
-        "message": "Title"
+        "message": "タイトル"
     },
     "sites_addform_description": {
-        "message": "Description"
+        "message": "メモ"
     },
     "sites_addform_tagline": {
-        "message": "Tags(Separate with ',')"
+        "message": "タグ(','で分ける)"
     },
     "sites_signin_first": {
-        "message": "You must <a target='_blank' href='$details$'>sign in</a> first in the Chrome extension of Doit.im :(",
+        "message": "先にChrome拡張を <a target='_blank' href='$details$'>ログイン</a> しましょう。",
         "placeholders": {
             "details": {
                 "content": "$1",
@@ -150,7 +150,7 @@
         }
     },
     "sites_signin_first_nolink": {
-        "message": "You must sign in first in the Chrome extension of Doit.im :("
+        "message": "先にChrome拡張をログインしましょう。"
     },
     "web_signin_data_zone_mainland": {
         "message": "中国のサーバーを利用しています"
@@ -174,30 +174,30 @@
         "message": "ユーザー名・メールアドレス・パスワードが正しくありません。"
     },
     "options": {
-        "message": "OPTIONS"
+        "message": "オペション"
     },
     "option_username": {
-        "message": "Username:"
+        "message": "ユーザー名:"
     },
     "option_email": {
-        "message": "Email:"
+        "message": "メルアド:"
     },
     "option_registered": {
-        "message": "Registered:"
+        "message": "登録時期:"
     },
     "option_task_mailbox": {
-        "message": "Task mailbox:"
+        "message": "タスクのメールボックス:"
     },
     "option_expires_on": {
-        "message": "Pro Account Expires on:"
+        "message": "Proアカウントの期限:"
     },
     "option_quick_add": {
-        "message": "Quick add services:"
+        "message": "クイック追加:"
     },
     "option_sina": {
         "message": "Sina weibo"
     },
     "option_quickadd_desc": {
-        "message": "Add infomation from these services to the Inbox of Doit.im."
+        "message": "Doit.imの収集箱へ追加することができます。"
     }
 }

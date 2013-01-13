@@ -633,7 +633,6 @@ function slideUpTask(id,repeat_no){
     if(repeat_no){
         $node = $('.task-wrap[dyna-id='+encodeURIComponent(id)+'][data-repeatid='+repeat_no+']')
     }
-    console.log($node)
     $node.slideUp('normal',function(){
         $(this).remove();
     });

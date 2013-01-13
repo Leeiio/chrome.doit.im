@@ -2,7 +2,7 @@
     "name":"Doit.im",
     "manifest_version":2,
     "update_url":"http://clients2.google.com/service/update2/crx",
-    "version":"2.5",
+    "version":"2.5.1",
     "description":"Here comes the extension of Doit.im, which adopts GTD to make your life perfectly organized.",
     "browser_action":{
         "default_icon":"imgs/icon.png",

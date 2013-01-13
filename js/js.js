@@ -197,7 +197,8 @@ $(document).ready(function() {
                         finishTask(task,function(task){
                             //删掉那个dom的task
                             var id = task.uuid;
-                            slideUpTask(id);
+                            var repeat_no = task.repeat_no;
+                            slideUpTask(id,repeat_no);
                         });
                     }else if($t.parents('.delete-button-wrap').length || $t.hasClass('delete-button-wrap')){//删除
                         msg({title:L('Warning'),content:L('ARE_YOU_SURE_TO_DELETE_THE_TASK'),ok:function(){
@@ -205,7 +206,8 @@ $(document).ready(function() {
                             deleteTask(task,function(task){
                                 //删掉那个dom的task
                                 var id = task.uuid;
-                                slideUpTask(id);
+                                var repeat_no = task.repeat_no;
+                                slideUpTask(id,repeat_no);
                             });
                         },cancel:function(){
                         }});
@@ -216,7 +218,8 @@ $(document).ready(function() {
                         unfinishTask(task,function(task){
                             //删掉那个dom的task
                             var id = task.uuid;
-                            slideUpTask(id);
+                            var repeat_no = task.repeat_no;
+                            slideUpTask(id,repeat_no);
                         });
                     }else if($t.parents('.delete-button-wrap').length != 0 || $t.hasClass('delete-button-wrap')){//删除
                         msg({title:L('Warning'),content:L('ARE_YOU_SURE_TO_DELETE_THE_TASK'),ok:function(){
@@ -224,7 +227,8 @@ $(document).ready(function() {
                             deleteTask(task,function(task){
                                 //删掉那个dom的task
                                 var id = task.uuid;
-                                slideUpTask(id);
+                                var repeat_no = task.repeat_no;
+                                slideUpTask(id,repeat_no);
                             });
                         },cancel:function(){
                         }});

@@ -266,6 +266,9 @@ only screen and (min-device-pixel-ratio: 1.5) {
     padding: 0 5px;
     background-color: #ebebeb;
     min-width: 35px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .task-wrap{
     line-height: 27px;

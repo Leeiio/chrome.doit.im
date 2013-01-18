@@ -538,7 +538,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
             var task = tasks[i];
             task.project_name = findNameByUUID(PROJECTS,project_id);
             var repeat_no = task.repeat_no ? task.repeat_no : '';
-            var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(task.uuid)+'" title="'+task.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!task.project_id?'':'<div class="task-project left">'+unescapeHTML(findNameByUUID(PROJECTS,task.project_id))+'</div>')+'<div'+(!task.notes?'':' title="'+escapeHTML(task.notes)+'"')+' class="task-title clearfix" contenteditable="true">'+unescapeHTML(task.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+            var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(task.uuid)+'" title="'+task.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!task.project_id?'':'<div title="'+escapeHTML(findNameByUUID(PROJECTS,task.project_id))+'" class="task-project left">'+escapeHTML(findNameByUUID(PROJECTS,task.project_id))+'</div>')+'<div'+(!task.notes?'':' title="'+escapeHTML(task.notes)+'"')+' class="task-title clearfix" contenteditable="true">'+escapeHTML(task.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',task);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
@@ -551,7 +551,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
             }
         }
         var repeat_no = tasks.repeat_no ? tasks.repeat_no : '';
-        var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks.project_id?'':'<div class="task-project left">'+unescapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+escapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+unescapeHTML(tasks.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+        var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks.project_id?'':'<div title="'+escapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'" class="task-project left">'+escapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+escapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+escapeHTML(tasks.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {

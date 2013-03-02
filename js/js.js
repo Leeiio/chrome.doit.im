@@ -155,7 +155,7 @@ $(document).ready(function() {
                         });
     
                         var $input = $('#task_add_input_wrap input');
-                        $.smartAdd.setRules({flag:'^',list:[L('Today'),L('Tomorrow'),L('Someday'),'mm-dd','yy-mm-dd'],repeat:false,hr:3,className:['','','']},{flag:'#',list:projects_smart,repeat:false,hr:-1});
+                        $.smartAdd.setRules({flag:'^',list:[L('Today'),L('Next'),L('Tomorrow'),L('Someday'),'mm-dd','yy-mm-dd'],repeat:false,hr:4,className:['','','']},{flag:'#',list:projects_smart,repeat:false,hr:-1});
                         $input.smartAdd();
                         $input.bind('keydown', function(e){
                             if(e.which == 13 && $('#smart_add_list').css('visibility') == 'hidden'){
@@ -326,6 +326,8 @@ $(document).ready(function() {
                         start_at_tmp = Date.today().getTime();
                         task.attribute = 'plan';
                         //U.log('today');
+                    }else if(new RegExp(L('Next'),'i').test(time)){
+                        task.attribute = 'next';
                     }else{
                         task.attribute = 'plan';
                         var input_text = $.trim(time);

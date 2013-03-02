@@ -17,12 +17,14 @@
     $d.on("hover", "#doitim_button", function () {
         $(this).toggleClass("T-I-JW");
     });
-    function sentMessage(text){
+    function sentMessage(text,autoHide){
         $(".b8.UC .vh").html(text);
         $(".b8.UC").css("visibility", "visible");
-        setTimeout(function(){
-            $(".b8.UC").css("visibility", "hidden");
-        },10E3);
+        if(autoHide){
+            setTimeout(function(){
+                $(".b8.UC").css("visibility", "hidden");
+            },10E3);
+        }
     }
     $d.on("click", ".doitim-menu", function (e) {
         e.stopPropagation();
@@ -44,9 +46,9 @@
         sentMessage(L('sites_posting'));
         chrome.extension.sendMessage(data,function(callback_data){
             if(callback_data.status === 'success'){
-                sentMessage(callback_data.message);
+                sentMessage(callback_data.message,true);
             }else if(callback_data.status === 'error'){
-                sentMessage(callback_data.message);
+                sentMessage(callback_data.message,true);
             }
         });
     });

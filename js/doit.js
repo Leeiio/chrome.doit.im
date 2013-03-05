@@ -8,6 +8,7 @@ function setAPI(zone){
     var data_zone = localStorage.getItem('data_zone') || 'jp';
     API_URL = data_zone === 'jp' ? 'https://api4.doit.im/2/' : 'https://apicn.doitim.com/2/';
     PROFILE_URL = API_URL + 'accounts/info';
+    COUNT_TODAY = API_URL + 'tasks/count/today';
     TASKS_URL = API_URL + 'tasks';
     PROJECTS_URL = API_URL + 'projects';
     TRASHTASK_URL = API_URL + 'tasks/trash/';
@@ -233,6 +234,12 @@ function getFEarlierTasks(callback){
 //获得个人信息
 function getProfile(callback) {
     $.get(PROFILE_URL, function(data) {
+        callback && callback(data);
+    });
+}
+//获取今日待办任务计数
+function getCountToday(callback){
+    $.get(COUNT_TODAY, function(data) {
         callback && callback(data);
     });
 }
@@ -525,6 +532,12 @@ function open_option(){
 
 //添加任务
 function addTasks(tasks,finishIndex,listIndex,turn){
+    var data_zone = localStorage.getItem('data_zone') || 'jp';
+    if(data_zone === 'jp'){
+        var prefixUrl = 'http://i.doit.im/';
+    }else{
+        var prefixUrl = 'http://i.doitim.com/';
+    }
     PROJECTS = JSON.parse(localStorage.getItem('projects'));
     if($.isArray(tasks)){
         for(var i = 0; i<tasks.length; i++){
@@ -538,7 +551,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
             var task = tasks[i];
             task.project_name = findNameByUUID(PROJECTS,project_id);
             var repeat_no = task.repeat_no ? task.repeat_no : '';
-            var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(task.uuid)+'" title="'+task.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!task.project_id?'':'<div title="'+escapeHTML(findNameByUUID(PROJECTS,task.project_id))+'" class="task-project left">'+escapeHTML(findNameByUUID(PROJECTS,task.project_id))+'</div>')+'<div'+(!task.notes?'':' title="'+escapeHTML(task.notes)+'"')+' class="task-title clearfix" contenteditable="true">'+escapeHTML(task.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+            var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(task.uuid)+'" title="'+task.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!task.project_id?'':'<div title="'+escapeHTML(findNameByUUID(PROJECTS,task.project_id))+'" class="task-project left">'+escapeHTML(findNameByUUID(PROJECTS,task.project_id))+'</div>')+'<div'+(!task.notes?'':' title="'+escapeHTML(task.notes)+'"')+' class="task-title clearfix" contenteditable="true">'+escapeHTML(task.title)+'</div></div><div class="link-button"></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
             $task.data('task',task);
             $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         }
@@ -551,7 +564,7 @@ function addTasks(tasks,finishIndex,listIndex,turn){
             }
         }
         var repeat_no = tasks.repeat_no ? tasks.repeat_no : '';
-        var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks.project_id?'':'<div title="'+escapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'" class="task-project left">'+escapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+escapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+escapeHTML(tasks.title)+'</div></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
+        var $task = $('<div data-repeatid="'+repeat_no+'" dyna-id="'+encodeURIComponent(tasks.uuid)+'" title="'+tasks.title+'" class="task-wrap"><div class="complete-button left"><a href="#"></a></div><div class="title-wrap">'+(!tasks.project_id?'':'<div title="'+escapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'" class="task-project left">'+escapeHTML(findNameByUUID(PROJECTS,tasks.project_id))+'</div>')+'<div'+(!tasks.notes?'':' title="'+escapeHTML(tasks.notes)+'"')+' class="task-title clearfix">'+escapeHTML(tasks.title)+'</div></div><div class="link-button"></div><div class="delete-button-wrap"><div class="delete-button" title="Delete it"></div></div></div>');
         $task.data('task',tasks);
         $('#tasks_list ul').eq(finishIndex).children('li').eq(listIndex).children('.task-article').prepend($task);
         turn || changeColor({R:255,G:255,B:180},{R:255,G:255,B:255},5,300, function(c) {
@@ -642,22 +655,9 @@ function showCount(){
     if(checkToken()){
         setHeader(
             function(){
-                getProfile(function(profile){
-                    var user_timezone = profile.user_timezone.split('T')[1].split(')')[0].toString().replace(':','');//+0800
-                    var username = profile.username;
-                        PROFILE.USER_TIMEZONE = user_timezone;
-                        PROFILE.USERNAME = username;
-                        getAllTasks(function(tasks){
-                            TASKS = tasks;
-                            //+++
-                            localStorage.removeItem('all_tasks');
-                            localStorage.setItem('all_tasks',JSON.stringify(tasks));
-                            //+++
-                            getOverdueAndTodayTasks(function(today_tasks){
-                                var count = today_tasks.length;
-                                chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
-                            });
-                        });  
+                getCountToday(function(data){
+                    var count = data.count;
+                    chrome.browserAction.setBadgeText({text:(count==0?'':count.toString())});
                 });
             }
         );

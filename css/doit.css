@@ -231,6 +231,17 @@ only screen and (min-device-pixel-ratio: 1.5) {
 /*#finished_tasks .task-title{
     text-decoration: line-through;
 }*/
+.link-button{
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    display: none;
+    right: 26px;
+    top: 0px;
+    margin: 10px 5px 5px 10px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABKklEQVR42o2RMYuDQBSE7z9aJmAlKQKC2EaC2FiKhY2VWFom/8PmII0iKEZCCBaxsJvsLKd4ERaLz1mfvNFxfgBsIkmSSADC8zTftBzHcSTAMAwSnjnbZBCGYSRA3/egfp0j5bLv+5EAr9cLVN5/z5QGp9MJz+eTb5qzixlBURSgKg0sy8L1epWZx3GUylld11SijuB5Xr7MfD6fcb/fYRgGWf7EdVVBEOQi4/vxeMisWZahLEvsdjuyrHFd1eVygeM46LqOOd+maeaapuGPeZmsqnJdF7Zto2kaKg1yVcxlVVxgNvmph8MBaZqCz1QGc1VU5mvbVurxeJyqUhuwjtvtBup+v/9lTl3X/1WlNGAdAlRVNdWzqkqFvLAWAbOvqtpkQFjPqqoNfADbM9L62bnS5QAAAABJRU5ErkJggg==) no-repeat;
+}
 .delete-button-wrap{
     display: none;
     width: 14px;
@@ -252,6 +263,13 @@ only screen and (min-device-pixel-ratio: 1.5) {
 only screen and (min-device-pixel-ratio: 1.5) {
     .delete-button{
         background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADt0lEQVRYw8VXzU8aQRR/uyAUWvxIFPyIBk0FPRhBm5b01DSxJk168E/w2B76ceulPffW/gn1qIdee+lZ7UVRkxZSNUSjUr8Q0Qg7s2zfGxiKfBjWQHjJy86+fW/nzfuY+Y0CJikSjX5aWVl9h0NbXqRNTAQ/j/j97+EWZDVrsLz889VAf7+to6Md3xQ4TZzaSIYvt3JAkQPGmOd3JPItdZ56fJPB8fFxRXlnZ+eNE7laXT8mgsEXnPN0RQcWF5eWMpoWcnd1gsPhBIfTAXfsdrBYLJDNZkHX9cJTpyfHp87zYw6c03dd6CuKAoqqggUZX8AwDIjFYuDucn8PBMafV0zB1tZWaHj4vjBWVQXsNhs4nU6wWq25SZG5mCjHDG1owizKMXqQyWSEnPSJyREDmZ4tLS2AaYPV8NrT0siocnCaSAhl+hF5fBPRd8nV3ot1KXK0sEwmba9ahMmzM6HscDiEx2RQVjAUWhEhVaxSrIBCnV8lTSTfSa+QDmRN09ABrXoXaIwl5hcWOqCBhLX1t2oXSFpZDRvh1RXhvQ3rgFZELFcuQyrrgvJPnFthBtLpNFxdXcHl5aXQo4h6unvg7ZvXSk37ABXS1NSUcICMKdTFThDJgpQT06TENClxKpWCZDIpdFwuF+zs7ta+EXHGC+ONjQ2Ix+Pg9XphdHRU5JlofX0ddnZ2YGBgQHyTtLm5CUdHR0Lu8Xhgb29PyCkS1UgtFTDOCuO1tTUYGhqC7u7uazrhcBgGBwfB7XaD3f6/sCORiNiQRNuhE4VOyBq1R4DCWkx+v7+iIckp/KXU29sLFxcX12SmIkC7WpmSqlbexxWl6j5xzYEb9pUKKeB1bz/DTAR4IxwwE4F6O2CYrQHOGdTbA3MRYPVOAe6cRrNrIGsmAnr9HTBXA0xvbhcwpjU5ArreAAeMJhchNLkLsrrJw6g4Z9FoFE5OTsoMSU6go5T29/fLDi8DTLbh+XlK/GR8fBy2t7cFKCmmQCAg5IeHhwKGSRoZGREXFzrSCbAQqiL0hE3AasYDrnuu7Wg0MtTT8wTGxsYgGAwWIJlsKZITQpKQTJLP54O+vj6BB84QZbe1tcEfREm+4eFfNTswPf3sw9zc3NezZLLlweSkQDyEC0tBKc/fjKhmNI2JM4ScIZa3KLzIQvzggM3Ozn5E+7toe1kNFVvx563Ivcjt8/PzD/EG/BLz6b3NBVZmE9FRLBR69GVmZmY9BwuyCeQ4MhUPL3bAgh6q+ZpQGng1MHIASZxOYsP5B7K0OZuZ1ECiAAAAAElFTkSuQmCC) no-repeat;
+        -webkit-background-size:16px 16px;
+        background-size:16px 16px;
+        width: 16px;
+        height: 16px;
+    }
+    .link-button{
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADoklEQVR42sVW6ytkYRze/0DtJ5/8Df6G/bqSralF0WZyWWTkusj9MtsQ1rgOTcu41AwjxLiNywdJ5DLCB9lCPkguKZMYPft7TtIsy1Fz5NTTnPe8Z97ned/f5TkfALwr3mRRq9X6SeAQ/BF4BS5B+JsJiImJeYDFYjFOTU3h7OwMd3d38Pl8OD09xdDQEGSu/v69txHQ0tLyc2trCzc3Nzg6OsL29jY4Pj4+xsXFBdxuN5qamsxvIkAWNpH0+voaHo8HPT09aG5uRmtrK0ZGRrC+vo79/X10d3ejvr7+u6YC6urqTAcHB/B6vVhbW1NITSZThSBYECpoGxwcxMrKCiYnJznn0UxARUWFcXd3F5eXl1heXobZbAaf+eeFjENramowPz+vCCgsLIQmAmShr8PDw7i6usLi4iJqa2u5uD85wfeCysvLMTc3B4fDgaysrEtNBOTm5s6dn58z0RhXlJWV2eQEQh5VBt8ztre3Y3Z2FpWVlcjMzJzRREB6erqXJcadVVVVweVyoaOjA3LcP+7J+Y5RxlhdXUV/fz/S0tIgzz5rIiA5OdnHjO/t7cXExIRS9ycnJ2hsbIQceYjMG+XC5uYmGKqkpCTC8qQMOzs7n8OLAvR6/Qoznjsn+eHhobLT6upqJCYmNkhIQIFOpxPx8fGIi4v7TXLNBBQVFblGR0eVbre3twd2QMY4Pz8f0pRYkkrSiVDExsZ2k1gzARJzExsMyVmGY2NjKCkpYTiUpFxaWqIIZedRUVFtD+RatGI5WhN7O8l3dnbAe9Z2QUEBMxypqakMgbJznU73i4QqAl7vanLETrlIrux0YGAAeXl53Kk1IiLCLYDAJ3AJwkmmIuD1rsZ2ypjyfmNjA319fcjJyUFKSorhOYNSE/BqV+vq6oLdbsft7a2S6TabDRkZGTzqJ+REWFjYS/AToO5q7O1MLpIrhiKhgMFgYLzt/F8gAlRdrbS01MruRnJmtrRUHjlNR3G1QAWoupp0s+Ds7GxMT0+zrNjJ6PP/uFogUHU1zksHM5A4ISGBcX/iaoHgv64m4yeWGh0dHSzkDY9d7X4+IAH+rkZyyPjjA7mKqwUswN/V+MVSXFwMGX/xJ3/J1TQRQFdjU5mZmcH4+Di7GtvoN0GowPicq2kmQJxKzz5OEcz2hYUFJRH5TMXVtBFAREZGNtPNWPP8oGApqriadgLEsYgggZkuxiNXcTVtBYhrEVyIvzoVV9NcwHvi/QX8BV2Cgf5oKuO4AAAAAElFTkSuQmCC) no-repeat;
         -webkit-background-size:16px 16px;
         background-size:16px 16px;
         width: 16px;
@@ -283,6 +301,9 @@ only screen and (min-device-pixel-ratio: 1.5) {
 .task-wrap:hover{
     cursor: default;
     background-color: #ebebeb;
+}
+.task-wrap:hover .link-button{
+    display: block;
 }
 .task-wrap:hover .delete-button-wrap{
     display: block;

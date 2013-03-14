@@ -49,7 +49,7 @@ $(function () {
         var data = {
             type: 'weibo',
             title:title,
-            content:tweetURL + '\n\n' + title
+            content:tweetURL
         };
         chrome.extension.sendMessage(data,function(callback_data){
             if(callback_data.status === 'error'){

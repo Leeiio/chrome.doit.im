@@ -41,7 +41,7 @@ $(function () {
         var data = {
             type: 'twitter',
             title:title,
-            content:tweetURL + '\n\n' + title
+            content:tweetURL
         };
         $('body').addClass('pushing-state');
         chrome.extension.sendMessage(data,function(callback_data){

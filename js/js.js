@@ -290,7 +290,7 @@ $(document).ready(function() {
 
                     var task = {
                         uuid:makeUUID(),
-                        title : $.trim(unescapeHTML(title)),
+                        title : $.trim(unescapeHTML(smartAddString)),
                         notes : '',
                         project_id : project_id,
                         project_name : project_str,

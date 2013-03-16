@@ -287,6 +287,7 @@ $(document).ready(function() {
                         smartAddString = (' '+smartAddString+' ').replace(' #'+project_str,'');
                     }
                     var project_id = findUUIDByName(PROJECTS,escapeHTML(project_str));
+
                     var task = {
                         uuid:makeUUID(),
                         title : $.trim(unescapeHTML(title)),
@@ -379,8 +380,9 @@ $(document).ready(function() {
                         start_at_tmp = date_split[0].replace(/-/g,'/') + ' ' + date_split[1] + ' ' + date_split[2];
                         start_at_tmp = new Date(start_at_tmp).getTime();
                     }
-                    if(project_id) task.attribute = 'next';
+
                     task.start_at = start_at_tmp;
+                    if(project_id && !task.start_at) task.attribute = 'next';
                     postTask(task,function(){
                         addTaskAuto(task);
                         $input.val('');

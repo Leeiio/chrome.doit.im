@@ -287,10 +287,10 @@ $(document).ready(function() {
                         smartAddString = (' '+smartAddString+' ').replace(' #'+project_str,'');
                     }
                     var project_id = findUUIDByName(PROJECTS,escapeHTML(project_str));
-
+                    var title_str = (' '+smartAddString).replace(' ^'+time,'');
                     var task = {
                         uuid:makeUUID(),
-                        title : $.trim(unescapeHTML(smartAddString)),
+                        title : $.trim(title_str),
                         notes : '',
                         project_id : project_id,
                         project_name : project_str,

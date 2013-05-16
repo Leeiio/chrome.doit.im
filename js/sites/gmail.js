@@ -35,9 +35,12 @@
     $d.on('click', '#doitim_add', function(e){
         $('#doitim_button').removeClass('T-I-j0').removeClass('T-I-Kq').next('.doitim-menu').hide();
         var $node = $(this).parents('.doitim-menu');
-        var tags = $node.find('.doitim-input-tags').val().split(',');
+        var tags_val = $node.find('.doitim-input-tags').val();
         var newTags = [];
-        tags.forEach(function(i){newTags.push(i.trim())});
+        if(tags_val){
+            var tags = tags_val.split(',');
+            tags.forEach(function(i){newTags.push(i.trim())});
+        }
         var data = {};
         data.content = $node.find('.doitim-input-notes').val();
         data.title = $node.find('.doitim-input-title').val();

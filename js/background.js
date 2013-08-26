@@ -25,6 +25,7 @@ chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
             message:L("sites_signin_first",chrome.extension.getURL("options.html"))
         });
     }else{
+        //切换账户的时候设置仍然是上个用户的所以这里要重置一下
         var addBasicAuth = function(){
             var auth = localStorage.getItem('user_auth');
             return 'Basic ' + auth;
@@ -37,6 +38,11 @@ chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
             },
             contentType: "application/json; charset=utf-8"
         });
+        var data_zone = localStorage.getItem('data_zone') || 'jp';
+        API_URL = data_zone === 'jp' ? 'https://api4.doit.im/2/' : 'https://apicn.doitim.com/2/';
+        TASKS_URL = API_URL + 'tasks';
+
+
         var task;
         if(request.type === 'cntv'){
             task = {

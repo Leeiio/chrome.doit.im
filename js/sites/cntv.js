@@ -53,6 +53,7 @@ $(function () {
     function initialize() {
         addToCNTV();
         $('.main_schedule_list .doitim-btn').bind('click',function(){
+            if($(this).hasClass('loading')) return false;
             $(this).addClass('loading');
             addReminder(this);
             return false;

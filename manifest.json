@@ -19,6 +19,7 @@
             "js":[ "js/libs/jquery.min.js", "js/sites/twitter.js" ],
             "matches":[ "*://twitter.com/*" ]
         },{
+            "css": [ "css/sites/weibo.css" ],
             "js":[ "js/libs/jquery.min.js", "js/sites/weibo.js" ],
             "matches":[ "*://weibo.com/*" ]
         },{

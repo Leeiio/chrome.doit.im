@@ -52,6 +52,7 @@ $(function () {
             content:tweetURL
         };
         chrome.extension.sendMessage(data,function(callback_data){
+            $(action).removeClass('loading');
             if(callback_data.status === 'error'){
                 showMessage(L("sites_signin_first_nolink"));
             }else{
@@ -71,6 +72,9 @@ $(function () {
             addToTwitter(getTweets());
         }, 1000);
         $(document).on('click','.doitim-btn',function(){
+            var $this = $(this);
+            if($this.hasClass('loading')) return false;
+            $this.addClass('loading');
             addTweet(this);
             return false;
         });

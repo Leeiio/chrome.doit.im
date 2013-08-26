@@ -110,7 +110,7 @@ $(document).ready(function() {
                     var data = JSON.parse(resp.responseText);
                     localStorage.setItem('account',JSON.stringify(data));
                     localStorage.setItem('user_auth',auth);
-                    localStorage.setItem('options','{"social_list":["twitter","gmail","outlook","weibo","pinboard"]}');
+                    localStorage.setItem('options','{"social_list":["twitter","gmail","outlook","weibo","pinboard","cntv"]}');
                     location.reload();
                 }else if(status == 301){
                     $('.signin-form input').parent().addClass('error');

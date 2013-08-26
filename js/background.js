@@ -37,15 +37,36 @@ chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
             },
             contentType: "application/json; charset=utf-8"
         });
-        var task = {
-            uuid:makeUUID(),
-            title : request.title,
-            notes : request.content,
-            start_at : null,
-            completed : null,
-            all_day : true,
-            attribute: 'inbox'
+        var task;
+        if(request.type === 'cntv'){
+            task = {
+                uuid:makeUUID(),
+                title : request.title,
+                notes : '',
+                start_at:request.start_at,
+                completed : null,
+                all_day : false,
+                reminders : [{
+                    mode:'popup',
+                    sent:false,
+                    time:request.reminder_time,
+                    uuid:makeUUID(),
+                    view:'absolute'
+                }],
+                attribute:'plan'
+            }
+        }else{
+            task = {
+                uuid:makeUUID(),
+                title : request.title,
+                notes : request.content,
+                start_at : null,
+                completed : null,
+                all_day : true,
+                attribute: 'inbox'
+            }
         }
+
         switch(request.type){
             case 'gmail':
                 if(request.tags){
@@ -59,6 +80,9 @@ chrome.extension.onMessage.addListener(function(request,sender,sendResponse){
                 break;
             case 'weibo':
                 task.tags = ["微博"];
+                break;
+            case 'cntv':
+                task.tags = ["CNTV"];
                 break;
             case 'qmail':
                 task.tags = ["QQ Mail"];

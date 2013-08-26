@@ -2,7 +2,7 @@
     "name":"Doit.im",
     "manifest_version":2,
     "update_url":"http://clients2.google.com/service/update2/crx",
-    "version":"2.5.10",
+    "version":"2.6",
     "description":"Here comes the extension of Doit.im, which adopts GTD to make your life perfectly organized.",
     "browser_action":{
         "default_icon":"imgs/icon.png",
@@ -27,6 +27,10 @@
         },{
             "js":[ "js/libs/jquery.min.js", "js/sites/pinboard.js" ],
             "matches":[ "*://pinboard.in/*" ]
+        },{
+            "css": [ "css/sites/cntv.css" ],
+            "js":[ "js/libs/jquery.min.js", "js/sites/cntv.js" ],
+            "matches":[ "*://vip.sports.cntv.cn/schedule.jsp*" ]
         }
 
     ],
@@ -48,5 +52,5 @@
         "128":"imgs/icon128.png"
     },
     "default_locale":"en",
-    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon-mask-16.png","imgs/icon11.png","js/sites/gmail_message.js","js/sites/qmail_message.js","js/libs/jquery.min.js" ]
+    "web_accessible_resources": [ "imgs/icon16.png","imgs/icon-mask-16.png","imgs/icon11.png","imgs/loading_cntv_11.gif","imgs/loading_16.gif","js/sites/gmail_message.js","js/sites/qmail_message.js","js/libs/jquery.min.js" ]
 }

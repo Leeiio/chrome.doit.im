@@ -21,7 +21,7 @@ $(function () {
     function addReminder(action){
         var $item = $(action).parent();
         var league = $.trim($item.find('.league').text());
-        var game = $.trim($item.find('.game').text());
+        var game = $.trim($item.find('.game').text()).replace(/\s+/g," ");
         var date = $.trim($item.find('.date').text());
         var time = $.trim($item.find('.time').text());
         var start_at = date + ' ' + time;

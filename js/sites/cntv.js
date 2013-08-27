@@ -13,6 +13,7 @@ $(function () {
                 var $this = $(this);
                 $this.addClass('doitim-action');
                 $this.find('.v_line').before('<div title="添加到Doit.im" class="item doitim-btn">Doit.im</div>');
+                if($this.find('.playbtn').length) $this.find('.doitim-btn').addClass('right');
             });
         }
     }

@@ -7,17 +7,12 @@
     width:16px;
     height:16px;
     margin:1px 5px 0 0;
+    cursor: pointer;
 }
 .doitim-btn.loading{
     background: url(chrome-extension://__MSG_@@extension_id__/imgs/loading_16.gif) no-repeat;
 }
-.doitim-action:hover .doitim-btn{
-    top:14px;
-    right: 0;
-    width: 11px;
-    height: 11px;
-    background: url(chrome-extension://__MSG_@@extension_id__/imgs/icon11.png) no-repeat;
-}
-.doitim-action:hover .doitim-btn.loading{
-    background: url(chrome-extension://__MSG_@@extension_id__/imgs/loading_cntv_11.gif) no-repeat;
+.doitim-action:hover .right{
+    right: -2px;
+    background: url(chrome-extension://__MSG_@@extension_id__/imgs/icon16.png) no-repeat;
 }

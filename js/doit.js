@@ -338,10 +338,20 @@ function postTask(task,callback) {
         // task.project = unescapeHTML(task.project);
         task.notes = unescapeHTML(task.notes);
     }
+    var addBasicAuth = function(){
+        var auth = localStorage.getItem('user_auth');
+        return 'Basic ' + auth;
+    };
+    var data_zone = localStorage.getItem('data_zone') || 'jp';
+    API_URL = data_zone === 'jp' ? 'https://api4.doit.im/2/' : 'https://apicn.doitim.com/2/';
+    TASKS_URL = API_URL + 'tasks';
     $.ajax({
         url: TASKS_URL,
         data: !task ? '' : JSON.stringify(task),
         type: 'POST',
+        beforeSend: function(req){
+            req.setRequestHeader('Authorization', addBasicAuth())
+        },
         contentType: 'application/json; charset=utf-8',
         complete: function(resp) {
             var status = resp.status;

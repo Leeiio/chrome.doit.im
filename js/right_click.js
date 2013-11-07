@@ -3,6 +3,7 @@ var _L = chrome.i18n.getMessage;
 var title_selection = _L("background_add_select_text_left")+"%s"+_L("background_add_select_text_right");
 var id_selection = chrome.contextMenus.create({
     'title': title_selection, 'contexts':['selection'], 'onclick': function(OnClickData){
+        var tmp_url = $.trim(OnClickData.pageUrl);
         var tmp = $.trim(OnClickData.selectionText);
         if(tmp.length > 225){
             alert(_L('TASK_VALI_TITLE_TOO_LONG'));
@@ -12,7 +13,7 @@ var id_selection = chrome.contextMenus.create({
             var task = {
                 uuid:makeUUID(),
                 title : tmp,
-                notes : '',
+                notes : tmp_url,
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,

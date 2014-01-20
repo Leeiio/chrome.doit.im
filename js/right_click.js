@@ -4,8 +4,9 @@ var title_selection = _L("background_add_select_text_left")+"%s"+_L("background_
 var id_selection = chrome.contextMenus.create({
     'title': title_selection, 'contexts':['selection'], 'onclick': function(OnClickData){
         var tmp_url = $.trim(OnClickData.pageUrl);
+        var link_url = $.trim(OnClickData.linkUrl);
         var tmp = $.trim(OnClickData.selectionText);
-        if(tmp.length > 225){
+        if(tmp.length > 255){
             alert(_L('TASK_VALI_TITLE_TOO_LONG'));
             return;
         }
@@ -13,7 +14,7 @@ var id_selection = chrome.contextMenus.create({
             var task = {
                 uuid:makeUUID(),
                 title : tmp,
-                notes : tmp_url,
+                notes : link_url || tmp_url,
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,
@@ -31,14 +32,18 @@ var title_link= _L("background_add_link");
 var id_link = chrome.contextMenus.create({
     'title': title_link, 'contexts':['link'], 'onclick': function(OnClickData){
         var tmp = $.trim(OnClickData.linkUrl);
-        if(tmp.length > 225){
-            alert(_L('TASK_VALI_TITLE_TOO_LONG'));
-            return;
-        }else{
+        var selection_text = $.trim(OnClickData.selectionText);
+        if(selection_text && selection_text.length > 255){
+          selection_text = selection_text.substr(0,255);
+        }
+//        if(tmp.length > 255){
+//            alert(_L('TASK_VALI_TITLE_TOO_LONG'));
+//            return;
+//        }else{
             var task = {
                 uuid:makeUUID(),
-                title : tmp,
-                notes : '',
+                title : selection_text || tmp.substr(0,255),
+                notes : tmp,
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,
@@ -47,23 +52,23 @@ var id_link = chrome.contextMenus.create({
             postTask(task,function(t){
                 alert(_L('Success'));
             });
-        }
+//        }
 //        alert('link '+OnClickData.linkUrl);
     }
 });
 //右键添加当页地址
 var title_page =  _L("background_add_page_url");
 var id_page = chrome.contextMenus.create({
-    'title': title_page, 'contexts':['page'], 'onclick': function(OnClickData){
+    'title': title_page, 'contexts':['page'], 'onclick': function(OnClickData,tab){
         var tmp = $.trim(OnClickData.pageUrl);
-        if(tmp.length > 225){
+        if(tmp.length > 255){
             alert(_L('TASK_VALI_TITLE_TOO_LONG'));
             return;
         }else{
             var task = {
                 uuid:makeUUID(),
-                title : tmp,
-                notes : '',
+                title : tab.title,
+                notes : tmp,
                 start_at : null,//要拼凑
                 completed : null,
                 all_day : true,
